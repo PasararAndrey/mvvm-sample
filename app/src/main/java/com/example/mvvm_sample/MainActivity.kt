@@ -20,9 +20,13 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.example.mvvm_sample.core.Constants
 import com.example.mvvm_sample.navigation.BottomNavScreens
+import com.example.mvvm_sample.ui.screen.favorite.FavoriteScreen
 import com.example.mvvm_sample.ui.screen.home.HomeScreen
+import com.example.mvvm_sample.ui.screen.settings.SettingsScreen
 import com.example.mvvm_sample.ui.theme.ComposeEducationTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +84,7 @@ class MainActivity : ComponentActivity() {
                             route = Constants.NavGraphs.FAVORITE
                         ) {
                             composable(route = BottomNavScreens.Favorite.route) {
-                                BottomNavScreens.Favorite.screen()
+                                FavoriteScreen()
                             }
                         }
 
@@ -89,7 +93,7 @@ class MainActivity : ComponentActivity() {
                             route = Constants.NavGraphs.SETTINGS
                         ) {
                             composable(route = BottomNavScreens.Settings.route) {
-                                BottomNavScreens.Settings.screen()
+                                SettingsScreen()
                             }
                         }
                     }
