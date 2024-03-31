@@ -33,7 +33,6 @@ android {
         }
 
         debug {
-            isMinifyEnabled = true
             isDebuggable = true
         }
     }
