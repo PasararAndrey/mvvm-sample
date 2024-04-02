@@ -11,16 +11,15 @@ import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
-class FavoriteViewModel
-@Inject
-constructor(
-    val sampleRepository: SampleRepositoryImpl
+class FavoriteViewModel @Inject constructor(
+    val sampleRepository: SampleRepositoryImpl,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(FavoriteUIState())
     val uiState: StateFlow<FavoriteUIState> = _uiState.asStateFlow()
 
     init {
         _uiState.update { state ->
+            @Suppress("MagicNumber")
             state.copy(randomNumber = Random(199).nextInt())
         }
     }

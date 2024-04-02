@@ -4,14 +4,6 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kapt)
-    alias(libs.plugins.detekt)
-}
-
-detekt {
-    version = libs.versions.detekt
-    config.setFrom(rootProject.files("default-detekt-config.yml"))
-    buildUponDefaultConfig = true
-    ignoreFailures = true
 }
 
 android {

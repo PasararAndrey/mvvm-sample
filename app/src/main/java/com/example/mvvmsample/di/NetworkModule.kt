@@ -14,8 +14,8 @@ import retrofit2.Retrofit
 @Module
 object NetworkModule {
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
-        return if (BuildConfig.DEBUG) {
+    fun provideOkHttpClient(): OkHttpClient =
+        if (BuildConfig.DEBUG) {
             val loggingInterceptor =
                 HttpLoggingInterceptor().also {
                     it.level = HttpLoggingInterceptor.Level.BODY
@@ -29,11 +29,11 @@ object NetworkModule {
                 .Builder()
                 .build()
         }
-    }
 
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
-        Retrofit.Builder()
+        Retrofit
+            .Builder()
             .client(okHttpClient)
             .baseUrl("https://www.google.com/")
             .build()

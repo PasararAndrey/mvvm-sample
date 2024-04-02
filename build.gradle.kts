@@ -1,3 +1,5 @@
+import io.gitlab.arturbosch.detekt.extensions.DetektExtension
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.androidApplication) apply false
@@ -7,6 +9,23 @@ plugins {
     alias(libs.plugins.detekt) apply true
 }
 
-project.dependencies.detektPlugins(libs.detekt.formatting)
+allprojects.onEach { project ->
+    project.afterEvaluate {
+        with(project.plugins) {
+            if (hasPlugin(libs.plugins.kotlinAndroid.get().pluginId)) {
+                apply(
+                    libs.plugins
+                        .detekt
+                        .get()
+                        .pluginId
+                )
+                project.extensions.configure<DetektExtension> {
+                    config.setFrom(rootProject.files("default-detekt-config.yml"))
+                }
+                project.dependencies.detektPlugins(libs.detekt.formatting.get())
+            }
+        }
+    }
+}
 
 true // Needed to make the Suppress annotation work for the plugins block

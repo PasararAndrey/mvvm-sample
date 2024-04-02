@@ -15,11 +15,11 @@ object DatabaseModule {
     @Provides
     fun provideSampleDatabase(
         @ApplicationContext context: Context
-    ): SampleDatabase {
-        return Room.databaseBuilder(
-            context = context,
-            klass = SampleDatabase::class.java,
-            name = "sample_database"
-        ).build()
-    }
+    ): SampleDatabase =
+        Room
+            .databaseBuilder(
+                context = context,
+                klass = SampleDatabase::class.java,
+                name = "sample_database"
+            ).build()
 }
