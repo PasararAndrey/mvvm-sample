@@ -1,9 +1,0 @@
-name: Check code quality
-run-name: Check code with detekt
-on: [push]
-jobs:
-    Detekt-Check:
-        runs-on: ubuntu-latest
-        steps:
-            -run: .gradlew detekt
-
