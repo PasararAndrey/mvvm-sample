@@ -1,17 +1,25 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kapt)
+    alias(libs.plugins.detekt)
+}
+
+detekt {
+    version = libs.versions.detekt
+    config.setFrom(rootProject.files("default-detekt-config.yml"))
+    buildUponDefaultConfig = true
+    ignoreFailures = true
 }
 
 android {
-    namespace = "com.example.mvvm_sample"
+    namespace = "com.example.mvvmsample"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.mvvm_sample"
+        applicationId = "com.example.mvvmsample"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -55,14 +63,13 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
 }
 
 dependencies {
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
 
-    //Compose
+    // Compose
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
@@ -86,8 +93,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.logging.interceptor)
 
-
-    //Testing
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
