@@ -52,7 +52,7 @@ private fun App() {
             BottomNavBar(bottomNavScreen, selectedItem, navController) { index ->
                 selectedItem = index
             }
-        }
+        },
     ) { innerPadding ->
         NavHost(navController, innerPadding)
     }
@@ -63,7 +63,7 @@ private fun BottomNavBar(
     screens: List<BottomNavScreens>,
     selectedItem: Int,
     navController: NavHostController,
-    onItemSelected: (index: Int) -> Unit
+    onItemSelected: (index: Int) -> Unit,
 ) {
     NavigationBar {
         screens.forEachIndexed { index, item ->
@@ -73,7 +73,7 @@ private fun BottomNavBar(
                     onItemSelected(index)
                     navController.navigate(item.route) {
                         popUpTo(
-                            navController.graph.findStartDestination().id
+                            navController.graph.findStartDestination().id,
                         ) {
                             saveState = true
                         }
@@ -84,9 +84,9 @@ private fun BottomNavBar(
                 icon = {
                     Icon(
                         imageVector = item.icon,
-                        contentDescription = null
+                        contentDescription = null,
                     )
-                }
+                },
             )
         }
     }
@@ -95,12 +95,12 @@ private fun BottomNavBar(
 @Composable
 private fun NavHost(
     navController: NavHostController,
-    innerPadding: PaddingValues
+    innerPadding: PaddingValues,
 ) {
     NavHost(
         navController = navController,
         startDestination = Constants.NavGraphs.HOME,
-        modifier = Modifier.padding(innerPadding)
+        modifier = Modifier.padding(innerPadding),
     ) {
         homeGraph()
         favoriteGraph()

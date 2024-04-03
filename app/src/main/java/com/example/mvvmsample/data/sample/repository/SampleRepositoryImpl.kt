@@ -13,9 +13,7 @@ import javax.inject.Inject
  * @param remoteDataSource
  */
 @Suppress("UnusedPrivateProperty")
-class SampleRepositoryImpl
-@Inject
-constructor(
+class SampleRepositoryImpl @Inject constructor(
     private val localDataSource: SampleLocalDataSource,
-    private val remoteDataSource: SampleRemoteDataSource
+    private val remoteDataSource: SampleRemoteDataSource,
 ) : SampleRepository

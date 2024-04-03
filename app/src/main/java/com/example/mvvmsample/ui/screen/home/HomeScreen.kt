@@ -13,7 +13,7 @@ import com.example.mvvmsample.navigation.BottomNavScreens
 fun HomeScreen(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(text = BottomNavScreens.Home.route)
     }

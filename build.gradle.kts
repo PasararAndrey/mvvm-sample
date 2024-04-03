@@ -17,7 +17,7 @@ allprojects.onEach { project ->
                     libs.plugins
                         .detekt
                         .get()
-                        .pluginId
+                        .pluginId,
                 )
                 project.extensions.configure<DetektExtension> {
                     config.setFrom(rootProject.files("default-detekt-config.yml"))

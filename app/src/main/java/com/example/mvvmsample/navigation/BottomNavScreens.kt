@@ -24,9 +24,10 @@ sealed interface BottomNavScreens : NavDestinationWithIcon {
     }
 }
 
+@Suppress("ktlint:standard:function-naming")
 fun BottomNavScreens() =
     listOf(
         BottomNavScreens.Home,
         BottomNavScreens.Settings,
-        BottomNavScreens.Favorite
+        BottomNavScreens.Favorite,
     )

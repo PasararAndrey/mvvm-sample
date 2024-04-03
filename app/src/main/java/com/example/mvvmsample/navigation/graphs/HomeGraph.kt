@@ -10,10 +10,14 @@ import com.example.mvvmsample.ui.screen.home.HomeScreen
 fun NavGraphBuilder.homeGraph() {
     navigation(
         startDestination = BottomNavScreens.Home.route,
-        route = Constants.NavGraphs.HOME
+        route = Constants.NavGraphs.HOME,
     ) {
         composable(route = BottomNavScreens.Home.route) {
             HomeScreen()
         }
     }
+}
+
+class homeGraph {
+
 }

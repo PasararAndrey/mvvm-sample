@@ -10,7 +10,7 @@ import com.example.mvvmsample.ui.screen.settings.SettingsScreen
 fun NavGraphBuilder.settingsGraph() {
     navigation(
         startDestination = BottomNavScreens.Settings.route,
-        route = Constants.NavGraphs.SETTINGS
+        route = Constants.NavGraphs.SETTINGS,
     ) {
         composable(route = BottomNavScreens.Settings.route) {
             SettingsScreen()

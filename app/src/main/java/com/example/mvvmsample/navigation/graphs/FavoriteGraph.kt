@@ -10,7 +10,7 @@ import com.example.mvvmsample.ui.screen.favorite.FavoriteScreen
 fun NavGraphBuilder.favoriteGraph() {
     navigation(
         startDestination = BottomNavScreens.Favorite.route,
-        route = Constants.NavGraphs.FAVORITE
+        route = Constants.NavGraphs.FAVORITE,
     ) {
         composable(route = BottomNavScreens.Favorite.route) {
             FavoriteScreen()

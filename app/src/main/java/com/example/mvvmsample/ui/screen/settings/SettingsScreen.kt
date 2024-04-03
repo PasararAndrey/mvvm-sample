@@ -13,7 +13,7 @@ import com.example.mvvmsample.navigation.BottomNavScreens
 fun SettingsScreen(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(text = BottomNavScreens.Settings.route)
     }

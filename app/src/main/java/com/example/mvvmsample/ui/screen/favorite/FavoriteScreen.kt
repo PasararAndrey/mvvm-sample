@@ -13,7 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun FavoriteScreen(
     modifier: Modifier = Modifier,
-    favoriteViewModel: FavoriteViewModel = hiltViewModel()
+    favoriteViewModel: FavoriteViewModel = hiltViewModel(),
 ) {
     val state = favoriteViewModel.uiState.collectAsState()
     FavoriteScreen(state.value.randomNumber.toString(), modifier = modifier)
@@ -22,7 +22,7 @@ fun FavoriteScreen(
 @Composable
 private fun FavoriteScreen(
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(text = text)

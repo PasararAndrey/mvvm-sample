@@ -14,12 +14,12 @@ import dagger.hilt.components.SingletonComponent
 object DatabaseModule {
     @Provides
     fun provideSampleDatabase(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): SampleDatabase =
         Room
             .databaseBuilder(
                 context = context,
                 klass = SampleDatabase::class.java,
-                name = "sample_database"
+                name = "sample_database",
             ).build()
 }
