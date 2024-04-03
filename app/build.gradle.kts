@@ -30,10 +30,16 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            // config strings for database name and network url should be changed according to valid ones
+            buildConfigField("String", "DB_NAME", "")
+            buildConfigField("String", "BASE_URL", "")
         }
 
         debug {
             isDebuggable = true
+            // config strings for database name and network url should be updated according to valid ones
+            buildConfigField("String", "DB_NAME", "\"sample_database\"")
+            buildConfigField("String", "BASE_URL", "\"https://www.google.com/\"")
         }
     }
     compileOptions {
