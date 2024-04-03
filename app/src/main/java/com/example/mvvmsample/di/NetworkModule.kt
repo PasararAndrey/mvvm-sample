@@ -35,7 +35,7 @@ object NetworkModule {
         Retrofit
             .Builder()
             .client(okHttpClient)
-            .baseUrl("https://www.google.com/")
+            .baseUrl(BuildConfig.BASE_URL)
             .build()
 
     @Provides

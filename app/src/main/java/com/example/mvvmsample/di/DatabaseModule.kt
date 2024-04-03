@@ -2,6 +2,7 @@ package com.example.mvvmsample.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.mvvmsample.BuildConfig
 import com.example.mvvmsample.data.sample.local.SampleDatabase
 import dagger.Module
 import dagger.Provides
@@ -20,6 +21,6 @@ object DatabaseModule {
             .databaseBuilder(
                 context = context,
                 klass = SampleDatabase::class.java,
-                name = "sample_database",
+                name = BuildConfig.DB_NAME,
             ).build()
 }
