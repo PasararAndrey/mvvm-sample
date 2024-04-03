@@ -252,3 +252,20 @@ In addition to the libraries mentioned above, the project also utilizes the foll
 
 These tools ensure code quality, adherence to coding standards, and overall maintainability of the project.
 
+## 5. App Preview
+
+The bottom navigation consists of three tabs. 
+
+- **Home**: tab name in the middle of the screen.
+
+![image](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/54e87355-e49e-4ef1-95c6-4daa29eb4cf8)
+
+- **Settings**: tab name in the middle of the screen.
+
+![image](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/322b5e4d-5957-4cd7-ba83-33e6107a8d49)
+
+- **Settings**: tab name in the middle of the screen. An example of how to use the viewmodel. A randomly generated number in the viewmodel is delivered to the screen using StateFlow.
+
+![image](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/827b6ee1-b19e-458e-99b8-8a8255e86b07)
+
+
