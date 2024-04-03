@@ -17,7 +17,3 @@ fun NavGraphBuilder.homeGraph() {
         }
     }
 }
-
-class homeGraph {
-
-}
