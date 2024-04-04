@@ -1,8 +1,8 @@
-name: Detekt Check 
-run-name: Check code quality with Detekt 
+name: ktlint Check 
+run-name: Check code quality with Ktlint 
 on: [push]
 jobs:
-    check-detekt:
+    check-ktlint:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -18,5 +18,5 @@ jobs:
                     gradle-version: 8.2
             - name: Change wrapper permissions
               run: chmod +x ./gradlew
-            - name: Detekt
-              run: ./gradlew detekt
+            - name: Ktlint
+              run: ./gradlew ktlintCheck
