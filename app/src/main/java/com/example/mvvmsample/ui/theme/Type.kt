@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:indent")
+
 package com.example.mvvmsample.ui.theme
 
 import androidx.compose.material3.Typography

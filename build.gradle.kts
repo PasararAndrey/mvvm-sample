@@ -7,20 +7,18 @@ plugins {
     alias(libs.plugins.dagger.hilt.android) apply false
     alias(libs.plugins.kapt) apply false
     alias(libs.plugins.detekt) apply true
+    alias(libs.plugins.ktlint.gradle) apply true
 }
 
 allprojects.onEach { project ->
     project.afterEvaluate {
         with(project.plugins) {
             if (hasPlugin(libs.plugins.kotlinAndroid.get().pluginId)) {
-                apply(
-                    libs.plugins
-                        .detekt
-                        .get()
-                        .pluginId,
-                )
+                apply(libs.plugins.detekt.get().pluginId)
+                apply(libs.plugins.ktlint.gradle.get().pluginId)
                 project.extensions.configure<DetektExtension> {
                     config.setFrom(rootProject.files("default-detekt-config.yml"))
+                    buildUponDefaultConfig = true
                 }
                 project.dependencies.detektPlugins(libs.detekt.formatting.get())
             }

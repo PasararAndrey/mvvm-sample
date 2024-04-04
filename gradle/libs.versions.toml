@@ -18,6 +18,7 @@ room = "2.6.1"
 hilt = "1.2.0"
 #noinspection GradleDependency
 detekt = "1.23.3"
+ktlint-gradle = "12.1.0"
 
 [libraries]
 lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle-runtime-ktx" }
@@ -54,4 +55,5 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+ktlint-gradle = {id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle"}
 
