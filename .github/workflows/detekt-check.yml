@@ -2,7 +2,7 @@ name: Detekt Check
 run-name: Check code quality with Detekt 
 on: [push]
 jobs:
-    check-bats-version:
+    check-detekt:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
