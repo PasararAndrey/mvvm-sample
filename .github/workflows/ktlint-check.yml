@@ -18,5 +18,5 @@ jobs:
                     gradle-version: 8.2
             - name: Change wrapper permissions
               run: chmod +x ./gradlew
-            - name: Detekt
+            - name: Ktlint
               run: ./gradlew ktlintCheck
