@@ -1,7 +1,7 @@
 package com.example.mvvmsample.ui.screen.favorite
 
 import androidx.lifecycle.ViewModel
-import com.example.mvvmsample.data.sample.repository.SampleRepositoryImpl
+import com.example.mvvmsample.data.sample.repository.SampleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +12,7 @@ import kotlin.random.Random
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
-    val sampleRepository: SampleRepositoryImpl,
+    val sampleRepository: SampleRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(FavoriteUIState())
     val uiState: StateFlow<FavoriteUIState> = _uiState.asStateFlow()
