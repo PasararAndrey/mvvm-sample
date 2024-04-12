@@ -8,19 +8,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
     val sampleRepository: SampleRepository,
 ) : ViewModel() {
+    fun receiveNumber(number: String) {
+        _uiState.update { it.copy(receivedNumber = number) }
+    }
+
     private val _uiState = MutableStateFlow(FavoriteUIState())
     val uiState: StateFlow<FavoriteUIState> = _uiState.asStateFlow()
-
-    init {
-        _uiState.update { state ->
-            @Suppress("MagicNumber")
-            state.copy(randomNumber = Random(199).nextInt())
-        }
-    }
 }

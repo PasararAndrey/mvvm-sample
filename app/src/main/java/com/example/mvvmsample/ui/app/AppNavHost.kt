@@ -5,23 +5,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.example.mvvmsample.core.Constants
-import com.example.mvvmsample.navigation.graphs.favoriteGraph
-import com.example.mvvmsample.navigation.graphs.homeGraph
-import com.example.mvvmsample.navigation.graphs.settingsGraph
+import androidx.navigation.compose.NavHost
+import com.example.mvvmsample.navigation.graph.NavGraph
+import com.example.mvvmsample.navigation.graph.favoriteGraph
+import com.example.mvvmsample.navigation.graph.homeGraph
+import com.example.mvvmsample.navigation.graph.settingsGraph
 
 @Composable
-fun NavHost(
+fun AppNavHost(
     navController: NavHostController,
     innerPadding: PaddingValues,
 ) {
-    androidx.navigation.compose.NavHost(
+    NavHost(
         navController = navController,
-        startDestination = Constants.NavGraphs.HOME,
+        startDestination = NavGraph.HOME_GRAPH.name,
         modifier = Modifier.padding(innerPadding),
     ) {
         homeGraph()
-        favoriteGraph()
         settingsGraph()
+        favoriteGraph(navController)
     }
 }

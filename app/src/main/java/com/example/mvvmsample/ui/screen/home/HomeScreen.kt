@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.mvvmsample.navigation.BottomNavScreens
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
@@ -15,7 +14,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
-        Text(text = BottomNavScreens.Home.route)
+        Text(text = "Home")
     }
 }
 
