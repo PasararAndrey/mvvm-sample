@@ -7,20 +7,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.mvvmsample.navigation.BottomNavScreens
 
 @Composable
-fun SettingsScreen(modifier: Modifier = Modifier) {
+fun SettingsScreen(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
-        Text(text = BottomNavScreens.Settings.route)
+        Text(text = text)
     }
 }
 
 @Composable
 @Preview(showBackground = true)
 private fun SettingsScreenPreview() {
-    SettingsScreen()
+    SettingsScreen("Settings")
 }

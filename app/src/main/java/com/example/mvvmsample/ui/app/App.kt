@@ -2,28 +2,19 @@ package com.example.mvvmsample.ui.app
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.navigation.compose.rememberNavController
-import com.example.mvvmsample.navigation.BottomNavScreens
+import com.example.mvvmsample.navigation.utils.MainBottomNavDestinations
 
 @Composable
 fun App() {
-    val navController = rememberNavController()
-    var selectedItem by remember {
-        mutableIntStateOf(0)
-    }
-    val bottomNavScreen = BottomNavScreens()
+    val rootNavController = rememberNavController()
+    val bottomNavScreens = MainBottomNavDestinations.destinations()
 
     Scaffold(
         bottomBar = {
-            BottomNavBar(bottomNavScreen, selectedItem, navController) { index ->
-                selectedItem = index
-            }
+            BottomNavBar(bottomNavScreens, rootNavController)
         },
     ) { innerPadding ->
-        NavHost(navController, innerPadding)
+        AppNavHost(rootNavController, innerPadding)
     }
 }
