@@ -8,6 +8,5 @@
     </option>
     <option name="enableDetekt" value="true" />
     <option name="enableFormatting" value="true" />
-    <option name="treatAsErrors" value="true" />
   </component>
 </project>
