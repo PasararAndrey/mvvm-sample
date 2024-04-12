@@ -3,8 +3,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.dagger.hilt.android)
-    alias(libs.plugins.kapt)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -73,7 +73,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.5"
     }
     packaging {
         resources {
@@ -106,12 +106,11 @@ dependencies {
     // DI
     implementation(libs.dagger.hilt.android)
     implementation(libs.hilt.navigation.compose)
-    kapt(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
 
     // Room
     implementation(libs.room.runtime)
-    //noinspection KaptUsageInsteadOfKsp
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
 
     // Network
     implementation(libs.retrofit)
