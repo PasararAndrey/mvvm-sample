@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kapt)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
@@ -21,18 +22,36 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        // Removes needless resource configurations from apk
+        resourceConfigurations += setOf("en")
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = File(rootDir, "samplekey.jks")
+            keyPassword = "123456"
+            storePassword = "123456"
+            keyAlias = "pasarar"
+        }
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs["release"]
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
+                "kotlin-serialization-proguard-rules.pro",
             )
             // config strings for database name and network url should be changed according to valid ones
-            buildConfigField("String", "DB_NAME", "")
-            buildConfigField("String", "BASE_URL", "")
+            buildConfigField("String", "DB_NAME", "\"sample_database\"")
+            buildConfigField("String", "BASE_URL", "\"https://www.google.com/\"")
+
+            ndk {
+                abiFilters += setOf("armeabi-v7a", "arm64-v8a", "x86_64")
+            }
         }
 
         debug {
@@ -58,7 +77,13 @@ android {
     }
     packaging {
         resources {
+            // Excludes needless files from builds
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/okhttp3/internal/publicsuffix/NOTICE"
+            excludes += "/META-INF/androidx.*.version"
+            excludes += "/META-INF/com.google.*.version"
+            excludes += "/META-INF/kotlinx_*.version"
+            excludes += "/DebugProbesKt.bin"
         }
     }
 }
@@ -91,6 +116,7 @@ dependencies {
     // Network
     implementation(libs.retrofit)
     implementation(libs.logging.interceptor)
+    implementation(libs.kotlin.serialization)
 
     // Testing
     testImplementation(libs.junit)
