@@ -1,12 +1,12 @@
-package com.example.mvvmsample.navigation.screenbuilder.home
+package com.example.mvvmsample.navigation.navgraphbuilder.home
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.mvvmsample.navigation.utils.MainBottomNavDestinations
+import com.example.mvvmsample.navigation.destinations.NavDestinations
 import com.example.mvvmsample.ui.screen.home.HomeScreen
 
 fun NavGraphBuilder.homeScreen() {
-    composable(route = MainBottomNavDestinations.Home.route) {
+    composable(route = NavDestinations.Home.route) {
         HomeScreen()
     }
 }

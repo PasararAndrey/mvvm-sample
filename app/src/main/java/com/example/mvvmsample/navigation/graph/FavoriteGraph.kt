@@ -1,20 +1,16 @@
 package com.example.mvvmsample.navigation.graph
 
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.navigation
-import com.example.mvvmsample.navigation.screenbuilder.favorite.favoriteScreen
-import com.example.mvvmsample.navigation.screenbuilder.favoriteselected.favoriteSelectedScreen
-import com.example.mvvmsample.navigation.utils.MainBottomNavDestinations
-import com.example.mvvmsample.navigation.utils.navigateBackToFavoriteFromSelectedFavorite
-import com.example.mvvmsample.navigation.utils.navigateToFavoriteSelected
+import androidx.navigation.compose.navigation
+import com.example.mvvmsample.navigation.destinations.MainBottomNavDestinations
+import com.example.mvvmsample.navigation.destinations.NavDestinations
+import com.example.mvvmsample.navigation.navgraphbuilder.settings.favoriteScreen
 
-fun NavGraphBuilder.favoriteGraph(navController: NavController) {
+fun NavGraphBuilder.favoriteGraph() {
     navigation(
-        startDestination = MainBottomNavDestinations.Favorite.route,
-        route = NavGraph.FAVORITE_GRAPH.name,
+        startDestination = NavDestinations.Favorite.route,
+        route = MainBottomNavDestinations.FavoriteGraph.route,
     ) {
-        favoriteScreen { navController.navigateToFavoriteSelected(it) }
-        favoriteSelectedScreen { navController.navigateBackToFavoriteFromSelectedFavorite(it) }
+        favoriteScreen()
     }
 }

@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun SettingsScreen(
+fun FavoriteScreen(
     text: String,
     modifier: Modifier = Modifier,
 ) {
@@ -23,6 +23,6 @@ fun SettingsScreen(
 
 @Composable
 @Preview(showBackground = true)
-private fun SettingsScreenPreview() {
-    SettingsScreen("Settings")
+private fun FavoriteScreenPreview() {
+    FavoriteScreen("Favorite")
 }

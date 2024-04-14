@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.example.mvvmsample.navigation.graph.NavGraph
+import com.example.mvvmsample.navigation.destinations.MainBottomNavDestinations
+import com.example.mvvmsample.navigation.graph.booksGraph
 import com.example.mvvmsample.navigation.graph.favoriteGraph
 import com.example.mvvmsample.navigation.graph.homeGraph
-import com.example.mvvmsample.navigation.graph.settingsGraph
 
 @Composable
 fun AppNavHost(
@@ -18,11 +18,11 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = NavGraph.HOME_GRAPH.name,
+        startDestination = MainBottomNavDestinations.HomeGraph.route,
         modifier = Modifier.padding(innerPadding),
     ) {
         homeGraph()
-        settingsGraph()
-        favoriteGraph(navController)
+        favoriteGraph()
+        booksGraph(navController)
     }
 }

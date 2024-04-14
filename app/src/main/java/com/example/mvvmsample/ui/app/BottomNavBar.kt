@@ -9,7 +9,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.mvvmsample.navigation.utils.MainBottomNavDestinations
+import com.example.mvvmsample.navigation.destinations.MainBottomNavDestinations
 
 @Composable
 fun BottomNavBar(
@@ -20,10 +20,9 @@ fun BottomNavBar(
     val currentDestination = navBackStackEntry?.destination
     NavigationBar {
         screens.forEach { screen ->
-            val isSelected =
-                currentDestination?.hierarchy?.any { navDestination ->
-                    navDestination.parent?.startDestinationRoute == screen.route
-                } ?: false
+            val isSelected = currentDestination?.hierarchy?.any { navDestination ->
+                navDestination.parent?.route == screen.route || navDestination.route == screen.route
+            } ?: false
 
             NavigationBarItem(
                 selected = isSelected,
