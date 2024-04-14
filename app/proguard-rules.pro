@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-optimizationpasses 3
+
+-assumenosideeffects class kotlin.jvm.internal.Intrinsics {
+    public static void checkNotNullParameter(...);
+    public static void checkParameterIsNotNull(...);
+    public static void checkFieldIsNotNull(...);
+    public static void throwUndefinedForReified(...);
+}
