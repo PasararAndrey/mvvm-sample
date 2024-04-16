@@ -1,7 +1,7 @@
 package com.example.mvvmsample.di
 
-import com.example.mvvmsample.data.sample.repository.SampleRepository
-import com.example.mvvmsample.data.sample.repository.SampleRepositoryImpl
+import com.example.mvvmsample.data.books.repository.BookRepository
+import com.example.mvvmsample.data.books.repository.BookRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -11,5 +11,5 @@ import dagger.hilt.components.SingletonComponent
 @Module
 abstract class RepositoryModule {
     @Binds
-    abstract fun bindRepository(sampleRepositoryImpl: SampleRepositoryImpl): SampleRepository
+    abstract fun bindRepository(sampleRepositoryImpl: BookRepositoryImpl): BookRepository
 }

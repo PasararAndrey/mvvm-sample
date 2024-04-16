@@ -46,8 +46,9 @@ android {
                 "kotlin-serialization-proguard-rules.pro",
             )
             // config strings for database name and network url should be changed according to valid ones
-            buildConfigField("String", "DB_NAME", "\"sample_database\"")
+            buildConfigField("String", "DB_NAME_BOOK", "\"book_database\"")
             buildConfigField("String", "BASE_URL", "\"https://www.google.com/\"")
+            buildConfigField("String", "API_KEY", "\"23deb0be99fe45c8b72e9b218572d229\"")
 
             ndk {
                 abiFilters += setOf("armeabi-v7a", "arm64-v8a", "x86_64")
@@ -57,8 +58,9 @@ android {
         debug {
             isDebuggable = true
             // config strings for database name and network url should be updated according to valid ones
-            buildConfigField("String", "DB_NAME", "\"sample_database\"")
-            buildConfigField("String", "BASE_URL", "\"https://www.google.com/\"")
+            buildConfigField("String", "DB_NAME_BOOK", "\"book_database\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.bigbookapi.com/\"")
+            buildConfigField("String", "API_KEY", "\"23deb0be99fe45c8b72e9b218572d229\"")
         }
     }
     compileOptions {
@@ -109,13 +111,19 @@ dependencies {
     ksp(libs.dagger.hilt.compiler)
 
     // Room
-    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(libs.room.paging)
     ksp(libs.room.compiler)
 
     // Network
     implementation(libs.retrofit)
     implementation(libs.logging.interceptor)
     implementation(libs.kotlin.serialization)
+    implementation(libs.retrofit.converter.kotlinx.serialization)
+    implementation(libs.retrofit.adapters.result)
+    implementation(libs.paging.compose)
+    implementation(libs.paging.runtime.ktx)
+    implementation(libs.coil.compose)
 
     // Testing
     testImplementation(libs.junit)

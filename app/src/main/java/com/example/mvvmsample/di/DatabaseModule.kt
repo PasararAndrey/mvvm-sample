@@ -3,7 +3,7 @@ package com.example.mvvmsample.di
 import android.content.Context
 import androidx.room.Room
 import com.example.mvvmsample.BuildConfig
-import com.example.mvvmsample.data.sample.local.SampleDatabase
+import com.example.mvvmsample.data.books.local.BooksDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,11 +16,11 @@ object DatabaseModule {
     @Provides
     fun provideSampleDatabase(
         @ApplicationContext context: Context,
-    ): SampleDatabase =
-        Room
-            .databaseBuilder(
-                context = context,
-                klass = SampleDatabase::class.java,
-                name = BuildConfig.DB_NAME,
-            ).build()
+    ): BooksDatabase {
+        return Room.databaseBuilder(
+            context = context,
+            klass = BooksDatabase::class.java,
+            name = BuildConfig.DB_NAME_BOOK,
+        ).fallbackToDestructiveMigration().build()
+    }
 }
