@@ -8,7 +8,6 @@ import androidx.room.withTransaction
 import com.example.mvvmsample.data.books.local.BooksDatabase
 import com.example.mvvmsample.data.books.local.entity.BookEntity
 import com.example.mvvmsample.data.books.local.entity.BookRemoteKeyEntity
-import com.example.mvvmsample.data.books.remote.model.BookDto
 import com.example.mvvmsample.data.books.utils.toEntityList
 import okio.IOException
 import retrofit2.HttpException
@@ -23,16 +22,16 @@ class BooksRemoteMediator @Inject constructor(
         loadType: LoadType,
         state: PagingState<Int, BookEntity>,
     ): MediatorResult {
-        return try {
-            val offset: Int = when (loadType) {
-                LoadType.REFRESH -> 0
-                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> {
-                    val remoteKey = database.remoteKeysDao.getByID("book_id")
-                    remoteKey.nextOffset ?: return MediatorResult.Success(endOfPaginationReached = true)
-                }
+        val offset: Int = when (loadType) {
+            LoadType.REFRESH -> 0
+            LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+            LoadType.APPEND -> {
+                val remoteKey = database.remoteKeysDao.getByID(BOOK_ID)
+                remoteKey.nextOffset ?: return MediatorResult.Success(endOfPaginationReached = true)
             }
+        }
 
+        return try {
             val result = service.searchBooks(offset = offset)
             if (result.isSuccess) {
                 val booksDto = result.getOrThrow()
@@ -43,14 +42,13 @@ class BooksRemoteMediator @Inject constructor(
                     }
 
                     database.remoteKeysDao.insertOrReplace(
-                        BookRemoteKeyEntity("book_id", (booksDto.offset + booksDto.number)),
+                        BookRemoteKeyEntity(
+                            BOOK_ID,
+                            (booksDto.offset + booksDto.number),
+                        ),
                     )
 
-                    database.booksDao.insertAll(
-                        booksDto.books.map { nestedList: List<BookDto> ->
-                            nestedList.first()
-                        }.toEntityList(),
-                    )
+                    database.booksDao.insertAll(booksDto.books.flatten().toEntityList())
                 }
                 val endOfPaginationReached = booksDto.offset + booksDto.number >= BooksService.OFFSET_TO
                 MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
@@ -62,5 +60,9 @@ class BooksRemoteMediator @Inject constructor(
         } catch (e: HttpException) {
             MediatorResult.Error(e)
         }
+    }
+
+    companion object {
+        private const val BOOK_ID = "book_id"
     }
 }
