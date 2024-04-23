@@ -25,9 +25,9 @@ interface BooksService {
 
     companion object {
         const val OFFSET_FROM = 0
-        const val OFFSET_TO = 1000
+        const val OFFSET_TO = 30
         const val NUMBER_FROM = 1
         const val NUMBER_TO = 100
-        const val DEFAULT_OFFSET = 20
+        const val DEFAULT_OFFSET = 5
     }
 }
