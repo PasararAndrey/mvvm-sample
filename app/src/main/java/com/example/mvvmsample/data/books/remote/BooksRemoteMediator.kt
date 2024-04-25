@@ -8,6 +8,7 @@ import androidx.room.withTransaction
 import com.example.mvvmsample.data.books.local.BooksDatabase
 import com.example.mvvmsample.data.books.local.entity.BookEntity
 import com.example.mvvmsample.data.books.local.entity.BookRemoteKeyEntity
+import com.example.mvvmsample.data.books.remote.model.BooksDto
 import com.example.mvvmsample.data.books.utils.toEntityList
 import okio.IOException
 import retrofit2.HttpException
@@ -47,8 +48,8 @@ class BooksRemoteMediator @Inject constructor(
                             (booksDto.offset + booksDto.number),
                         ),
                     )
-
-                    database.booksDao.insertAll(booksDto.books.flatten().toEntityList())
+                    val flatten: List<BooksDto.BookDto> = booksDto.books.flatten()
+                    database.booksDao.insertAll(flatten.toEntityList())
                 }
                 val endOfPaginationReached = booksDto.offset + booksDto.number >= BooksService.OFFSET_TO
                 MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)

@@ -2,6 +2,7 @@ package com.example.mvvmsample.ui.screen.books
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -32,11 +33,10 @@ fun BooksScreen(
             CircularProgressIndicator(Modifier.align(Alignment.Center))
         } else {
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
+                modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
+                contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
             ) {
                 listContent(books, onNavigateToBookDetails)
                 progressIndicator(books)
@@ -45,7 +45,10 @@ fun BooksScreen(
     }
 }
 
-fun LazyListScope.listContent(books: LazyPagingItems<BooksUI>, onNavigateToBookDetails: (bookId: Long) -> Unit) {
+fun LazyListScope.listContent(
+    books: LazyPagingItems<BooksUI>,
+    onNavigateToBookDetails: (bookId: Long) -> Unit,
+) {
     items(
         count = books.itemCount,
         key = books.itemKey { it.id },

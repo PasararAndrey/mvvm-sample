@@ -15,4 +15,6 @@ data class BookEntity(
     val image: String,
     @ColumnInfo("subtitle")
     val subtitle: String?,
+    @ColumnInfo(name = "created_at")
+    val createdAt: Long = System.currentTimeMillis(),
 )
