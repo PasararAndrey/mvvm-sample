@@ -5,14 +5,10 @@ import androidx.navigation.NavOptions
 import com.example.mvvmsample.navigation.destinations.NavDestinations
 
 fun NavController.navigateToBookDetails(
-    arg: String,
+    bookId: Long,
     navOptions: NavOptions? = null,
 ) {
-    this.navigate("${NavDestinations.Books.route}/$arg", navOptions)
-}
-
-fun NavController.navigateBackToBooks(arg: String) {
-    this.navigateBackWithResult(NavDestinations.Books.ARGUMENT_KEY, arg)
+    this.navigate(NavDestinations.BookDetails.destinationWithArg(bookId), navOptions)
 }
 
 fun <T> NavController.navigateBackWithResult(

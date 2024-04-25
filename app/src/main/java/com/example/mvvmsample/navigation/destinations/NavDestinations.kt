@@ -10,6 +10,8 @@ sealed interface NavDestinations {
         const val BOOK_ID = "book_id"
         override val route: String = "${Books.route}/{$BOOK_ID}"
         val arguments = listOf(navArgument(BOOK_ID) { type = NavType.StringType })
+
+        fun destinationWithArg(bookId: Long) = "${Books.route}/$bookId"
     }
 
     data object Home : NavDestinations {

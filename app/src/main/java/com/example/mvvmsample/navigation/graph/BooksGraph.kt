@@ -14,7 +14,7 @@ fun NavGraphBuilder.booksGraph(navController: NavController) {
         startDestination = NavDestinations.Books.route,
         route = MainBottomNavDestinations.BooksGraph.route,
     ) {
-        booksScreen { navController.navigateToBookDetails(it) }
+        booksScreen { bookId -> navController.navigateToBookDetails(bookId) }
         bookDetailsScreen()
     }
 }

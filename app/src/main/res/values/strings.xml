@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MVVM Sample</string>
+    <string name="title">Title: %1$s</string>
+    <string name="no_title_provided">No title provided</string>
+    <string name="no_description_provided">No description provided</string>
+    <string name="rating">"Rating: %1$s"</string>
+    <string name="no_information_about_authors">No information about authors</string>
 </resources>

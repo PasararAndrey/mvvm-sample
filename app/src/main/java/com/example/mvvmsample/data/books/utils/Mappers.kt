@@ -1,7 +1,7 @@
 package com.example.mvvmsample.data.books.utils
 
 import com.example.mvvmsample.data.books.local.entity.BookEntity
-import com.example.mvvmsample.data.books.remote.model.BookDto
+import com.example.mvvmsample.data.books.remote.model.BooksDto.BookDto
 
 fun BookDto.toEntity(): BookEntity = BookEntity(id = id, title = title, image = image, subtitle = subtitle)
 

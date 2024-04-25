@@ -13,4 +13,16 @@ data class BooksDto(
     val number: Int,
     @SerialName("offset")
     val offset: Int,
-)
+) {
+    @Serializable
+    data class BookDto(
+        @SerialName("id")
+        val id: Long,
+        @SerialName("image")
+        val image: String,
+        @SerialName("subtitle")
+        val subtitle: String? = null,
+        @SerialName("title")
+        val title: String,
+    )
+}
