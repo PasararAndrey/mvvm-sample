@@ -1,3 +1,5 @@
+import java.util.Properties
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.androidApplication)
@@ -24,6 +26,11 @@ android {
         }
         // Removes needless resource configurations from apk
         resourceConfigurations += setOf("en")
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+
+        buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")} \"")
     }
 
     signingConfigs {
@@ -48,7 +55,6 @@ android {
             // config strings for database name and network url should be changed according to valid ones
             buildConfigField("String", "DB_NAME_BOOK", "\"book_database\"")
             buildConfigField("String", "BASE_URL", "\"https://www.google.com/\"")
-            buildConfigField("String", "API_KEY", "\"23deb0be99fe45c8b72e9b218572d229\"")
 
             ndk {
                 abiFilters += setOf("armeabi-v7a", "arm64-v8a", "x86_64")
@@ -60,7 +66,6 @@ android {
             // config strings for database name and network url should be updated according to valid ones
             buildConfigField("String", "DB_NAME_BOOK", "\"book_database\"")
             buildConfigField("String", "BASE_URL", "\"https://api.bigbookapi.com/\"")
-            buildConfigField("String", "API_KEY", "\"23deb0be99fe45c8b72e9b218572d229\"")
         }
     }
     compileOptions {

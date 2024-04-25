@@ -12,7 +12,7 @@ interface BooksDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(books: List<BookEntity>)
 
-    @Query("SElECT * FROM books")
+    @Query("SElECT * FROM books ORDER BY created_at")
     fun getBooks(): PagingSource<Int, BookEntity>
 
     @Query("DELETE FROM books")

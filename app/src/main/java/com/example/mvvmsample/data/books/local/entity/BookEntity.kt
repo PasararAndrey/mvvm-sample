@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity("books")
 data class BookEntity(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo("book_id")
     val id: Long,
     @ColumnInfo("title")
@@ -15,4 +15,6 @@ data class BookEntity(
     val image: String,
     @ColumnInfo("subtitle")
     val subtitle: String?,
+    @ColumnInfo(name = "created_at")
+    val createdAt: Long = System.currentTimeMillis(),
 )
