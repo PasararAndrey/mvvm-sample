@@ -24,6 +24,5 @@ sealed interface NavDestinations {
 
     data object Books : NavDestinations {
         override val route: String = "book"
-        const val ARGUMENT_KEY = "KEY"
     }
 }

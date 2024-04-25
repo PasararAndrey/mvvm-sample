@@ -84,16 +84,14 @@ fun BookElement(
                     text = title,
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     maxLines = 4,
                     overflow = TextOverflow.Ellipsis,
                 )
                 Text(
                     text = subtitle ?: stringResource(R.string.no_subtitle_provided),
                     style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     maxLines = 4,
                     overflow = TextOverflow.Ellipsis,
                 )

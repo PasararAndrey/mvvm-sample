@@ -8,4 +8,3 @@ data class BookDetailsUIState(
     val book: BookDetailsUI,
     val isLoading: Boolean = true,
 )
-
