@@ -2,7 +2,7 @@ package com.example.mvvmsample.di.network
 
 import com.example.mvvmsample.BuildConfig
 import com.example.mvvmsample.data.books.remote.BooksService
-import com.example.mvvmsample.data.books.utils.BooksApiKeyInterceptor
+import com.example.mvvmsample.data.utils.BooksApiKeyInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.skydoves.retrofit.adapters.result.ResultCallAdapterFactory
 import dagger.Module

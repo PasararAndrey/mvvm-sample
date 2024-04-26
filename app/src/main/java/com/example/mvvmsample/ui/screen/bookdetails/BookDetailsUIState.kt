@@ -5,6 +5,6 @@ import javax.annotation.concurrent.Immutable
 
 @Immutable
 data class BookDetailsUIState(
-    val book: BookDetailsUI,
-    val isLoading: Boolean = true,
+    val book: BookDetailsUI = BookDetailsUI(),
+    val isLoading: Boolean = false,
 )

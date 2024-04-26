@@ -2,7 +2,7 @@ package com.example.mvvmsample.data.books.remote
 
 import androidx.annotation.IntRange
 import androidx.annotation.Keep
-import com.example.mvvmsample.data.books.remote.model.BookByIdDTO
+import com.example.mvvmsample.data.books.remote.model.BookDTO
 import com.example.mvvmsample.data.books.remote.model.BookSortBy
 import com.example.mvvmsample.data.books.remote.model.BooksDto
 import retrofit2.http.GET
@@ -28,7 +28,7 @@ interface BooksService {
     @GET("/{$ID}")
     suspend fun getBookById(
         @Path(ID) id: Long,
-    ): Result<BookByIdDTO>
+    ): Result<BookDTO>
 
     companion object {
         const val OFFSET_FROM = 0

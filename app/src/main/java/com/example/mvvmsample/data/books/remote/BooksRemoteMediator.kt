@@ -6,10 +6,8 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.mvvmsample.data.books.local.BooksDatabase
-import com.example.mvvmsample.data.books.local.entity.BookEntity
+import com.example.mvvmsample.data.books.local.entity.BookPreviewEntity
 import com.example.mvvmsample.data.books.local.entity.BookRemoteKeyEntity
-import com.example.mvvmsample.data.books.remote.model.BooksDto
-import com.example.mvvmsample.data.books.utils.toEntityList
 import okio.IOException
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -18,10 +16,10 @@ import javax.inject.Inject
 class BooksRemoteMediator @Inject constructor(
     private val database: BooksDatabase,
     private val service: BooksService,
-) : RemoteMediator<Int, BookEntity>() {
+) : RemoteMediator<Int, BookPreviewEntity>() {
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, BookEntity>,
+        state: PagingState<Int, BookPreviewEntity>,
     ): MediatorResult {
         val offset: Int = when (loadType) {
             LoadType.REFRESH -> 0
@@ -38,7 +36,7 @@ class BooksRemoteMediator @Inject constructor(
                 val booksDto = result.getOrThrow()
                 database.withTransaction {
                     if (loadType == LoadType.REFRESH) {
-                        database.booksDao.clearAll()
+                        database.booksPreviewDao.clearAll()
                         database.remoteKeysDao.clear()
                     }
 
@@ -48,8 +46,8 @@ class BooksRemoteMediator @Inject constructor(
                             (booksDto.offset + booksDto.number),
                         ),
                     )
-                    val flatten: List<BooksDto.BookDto> = booksDto.books.flatten()
-                    database.booksDao.insertAll(flatten.toEntityList())
+                    val bookPreviewEntities = BookPreviewEntity.fromDtoList(booksDto.books.flatten())
+                    database.booksPreviewDao.insertAll(bookPreviewEntities)
                 }
                 val endOfPaginationReached = booksDto.offset + booksDto.number >= BooksService.OFFSET_TO
                 MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)

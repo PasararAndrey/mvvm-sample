@@ -1,12 +1,13 @@
 package com.example.mvvmsample.data.books.repository
 
 import androidx.paging.PagingData
-import com.example.mvvmsample.data.books.local.entity.BookEntity
-import com.example.mvvmsample.data.books.remote.model.BookByIdDTO
+import com.example.mvvmsample.data.books.local.entity.BookPreviewEntity
+import com.example.mvvmsample.model.BookModel
+import com.example.mvvmsample.utils.RequestResult
 import kotlinx.coroutines.flow.Flow
 
 interface BookRepository {
-    fun getSearchBookStream(): Flow<PagingData<BookEntity>>
+    fun getSearchBookStream(): Flow<PagingData<BookPreviewEntity>>
 
-    suspend fun getBookById(id: Long): Result<BookByIdDTO>
+    fun getBookById(id: Long): Flow<RequestResult<BookModel>>
 }

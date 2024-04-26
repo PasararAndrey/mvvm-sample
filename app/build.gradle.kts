@@ -129,6 +129,7 @@ dependencies {
     implementation(libs.paging.compose)
     implementation(libs.paging.runtime.ktx)
     implementation(libs.coil.compose)
+    implementation(libs.gson)
 
     // Testing
     testImplementation(libs.junit)

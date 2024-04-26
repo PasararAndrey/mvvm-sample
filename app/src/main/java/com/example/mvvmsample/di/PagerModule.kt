@@ -4,7 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.example.mvvmsample.data.books.local.BooksDatabase
-import com.example.mvvmsample.data.books.local.entity.BookEntity
+import com.example.mvvmsample.data.books.local.entity.BookPreviewEntity
 import com.example.mvvmsample.data.books.remote.BooksRemoteMediator
 import com.example.mvvmsample.data.books.remote.BooksService
 import dagger.Module
@@ -22,14 +22,14 @@ object PagerModule {
     fun provideBookPager(
         booksDatabase: BooksDatabase,
         booksService: BooksService,
-    ): Pager<Int, BookEntity> {
+    ): Pager<Int, BookPreviewEntity> {
         return Pager(
             config = PagingConfig(
                 pageSize = BooksService.DEFAULT_OFFSET,
                 prefetchDistance = 5,
                 initialLoadSize = BooksService.DEFAULT_OFFSET,
             ),
-            pagingSourceFactory = { booksDatabase.booksDao.getBooks() },
+            pagingSourceFactory = { booksDatabase.booksPreviewDao.getBooks() },
             remoteMediator = BooksRemoteMediator(booksDatabase, booksService),
         )
     }

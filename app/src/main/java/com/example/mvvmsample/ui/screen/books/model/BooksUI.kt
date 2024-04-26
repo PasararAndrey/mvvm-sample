@@ -1,6 +1,6 @@
 package com.example.mvvmsample.ui.screen.books.model
 
-import com.example.mvvmsample.data.books.local.entity.BookEntity
+import com.example.mvvmsample.data.books.local.entity.BookPreviewEntity
 
 data class BooksUI(
     val id: Long,
@@ -9,7 +9,7 @@ data class BooksUI(
     val subtitle: String?,
 ) {
     companion object {
-        fun fromEntity(bookEntity: BookEntity): BooksUI {
+        fun fromEntity(bookEntity: BookPreviewEntity): BooksUI {
             return BooksUI(
                 bookEntity.id,
                 bookEntity.title,

@@ -1,6 +1,6 @@
 package com.example.mvvmsample.ui.screen.bookdetails.model
 
-import com.example.mvvmsample.data.books.remote.model.BookByIdDTO
+import com.example.mvvmsample.model.BookModel
 import javax.annotation.concurrent.Immutable
 
 @Immutable
@@ -13,15 +13,15 @@ data class BookDetailsUI(
     val rating: Double? = null,
 ) {
     companion object {
-        fun fromDto(dto: BookByIdDTO) =
-            with(dto) {
+        fun fromModel(model: BookModel) =
+            with(model) {
                 BookDetailsUI(
                     bookId = id.toString(),
                     title = title,
                     image = image,
                     description = description,
                     authors = authors?.mapNotNull { author -> author.name },
-                    rating = rating?.average,
+                    rating = rating,
                 )
             }
     }

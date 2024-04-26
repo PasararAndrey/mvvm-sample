@@ -1,4 +1,4 @@
-package com.example.mvvmsample.data.books.utils
+package com.example.mvvmsample.data.utils
 
 import okhttp3.Interceptor
 import okhttp3.Request

@@ -8,14 +8,14 @@ data class BooksDto(
     @SerialName("available")
     val available: Int,
     @SerialName("books")
-    val books: List<List<BookDto>>,
+    val books: List<List<BookPreviewDto>>,
     @SerialName("number")
     val number: Int,
     @SerialName("offset")
     val offset: Int,
 ) {
     @Serializable
-    data class BookDto(
+    data class BookPreviewDto(
         @SerialName("id")
         val id: Long,
         @SerialName("image")

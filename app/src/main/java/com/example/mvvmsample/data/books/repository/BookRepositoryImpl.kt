@@ -4,24 +4,39 @@ import androidx.paging.Pager
 import androidx.paging.PagingData
 import com.example.mvvmsample.data.books.local.BooksDatabase
 import com.example.mvvmsample.data.books.local.entity.BookEntity
+import com.example.mvvmsample.data.books.local.entity.BookPreviewEntity
 import com.example.mvvmsample.data.books.remote.BooksService
-import com.example.mvvmsample.data.books.remote.model.BookByIdDTO
 import com.example.mvvmsample.di.dispatchers.IoDispatcher
+import com.example.mvvmsample.model.BookModel
+import com.example.mvvmsample.utils.RequestResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-@Suppress("UnusedPrivateProperty")
 class BookRepositoryImpl @Inject constructor(
     private val booksDatabase: BooksDatabase,
     private val booksService: BooksService,
-    private val bookPager: Pager<Int, BookEntity>,
+    private val bookPager: Pager<Int, BookPreviewEntity>,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : BookRepository {
-    override fun getSearchBookStream(): Flow<PagingData<BookEntity>> = bookPager.flow.flowOn(ioDispatcher)
+    override fun getSearchBookStream(): Flow<PagingData<BookPreviewEntity>> = bookPager.flow.flowOn(ioDispatcher)
 
-    override suspend fun getBookById(id: Long): Result<BookByIdDTO> {
-        return booksService.getBookById(id)
+    override fun getBookById(id: Long): Flow<RequestResult<BookModel>> {
+        return flow {
+            emit(RequestResult.InProgress())
+            val book = booksDatabase.booksDao.getById(id)
+            if (book != null) {
+                emit(RequestResult.Success(BookModel.fromEntity(book)))
+            } else {
+                val remoteBook = booksService.getBookById(id).getOrThrow()
+                booksDatabase.booksDao.insert(BookEntity.fromDto(remoteBook))
+                emit(RequestResult.Success(BookModel.fromDto(remoteBook)))
+            }
+        }.catch { throwable ->
+            emit(RequestResult.Error(error = throwable))
+        }
     }
 }
