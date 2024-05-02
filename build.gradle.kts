@@ -9,6 +9,8 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.detekt) apply true
     alias(libs.plugins.ktlint.gradle) apply true
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
 }
 
 allprojects.onEach { project ->
