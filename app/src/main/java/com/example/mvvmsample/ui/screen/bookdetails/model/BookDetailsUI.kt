@@ -11,6 +11,7 @@ data class BookDetailsUI(
     val description: String? = null,
     val authors: List<String>? = null,
     val rating: Double? = null,
+    val isFavorite: Boolean = false,
 ) {
     companion object {
         fun fromModel(model: BookModel) =
@@ -22,6 +23,7 @@ data class BookDetailsUI(
                     description = description,
                     authors = authors?.mapNotNull { author -> author.name },
                     rating = rating,
+                    isFavorite = isFavorite,
                 )
             }
     }
