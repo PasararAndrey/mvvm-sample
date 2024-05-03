@@ -33,9 +33,9 @@ import com.example.mvvmsample.R
 
 @Composable
 fun BookElement(
-    title: String,
+    title: String?,
     subtitle: String?,
-    imageUrl: String,
+    imageUrl: String?,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
@@ -81,7 +81,7 @@ fun BookElement(
                 verticalArrangement = Arrangement.SpaceEvenly,
             ) {
                 Text(
-                    text = title,
+                    text = title ?: stringResource(R.string.no_title_provided),
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.fillMaxWidth(),

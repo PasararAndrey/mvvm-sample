@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class BookRepositoryImpl @Inject constructor(
@@ -46,5 +47,12 @@ class BookRepositoryImpl @Inject constructor(
         }
         booksDatabase.booksDao.upsert(book)
         return BookModel.fromEntity(book)
+    }
+
+    override fun getFavoriteBooks(): Flow<RequestResult<List<BookModel>>> {
+        return booksDatabase.booksDao.getFavorites()
+            .map { entities ->
+                RequestResult.Success(entities.map { entity -> BookModel.fromEntity(entity) })
+            }
     }
 }
