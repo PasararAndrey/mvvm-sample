@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import java.util.Properties
 
 @Suppress("DSL_SCOPE_VIOLATION")
@@ -12,6 +13,8 @@ plugins {
 android {
     namespace = "com.example.mvvmsample"
     compileSdk = 34
+
+    project.tasks.preBuild.dependsOn("detekt").dependsOn("ktlintCheck")
 
     defaultConfig {
         applicationId = "com.example.mvvmsample"
