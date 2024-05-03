@@ -12,4 +12,6 @@ interface BookRepository {
     fun getBookById(id: Long): Flow<RequestResult<BookModel>>
 
     suspend fun updateFavorite(id: Long): BookModel
+
+    fun getFavoriteBooks(): Flow<RequestResult<List<BookModel>>>
 }
