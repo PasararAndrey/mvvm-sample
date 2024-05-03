@@ -10,4 +10,6 @@ interface BookRepository {
     fun getSearchBookStream(): Flow<PagingData<BookPreviewEntity>>
 
     fun getBookById(id: Long): Flow<RequestResult<BookModel>>
+
+    suspend fun updateFavorite(id: Long): BookModel
 }

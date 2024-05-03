@@ -16,6 +16,6 @@ fun NavGraphBuilder.bookDetailsScreen() {
     ) {
         val viewModel: BookDetailsViewModel = hiltViewModel()
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-        BookDetailsScreen(uiState)
+        BookDetailsScreen(uiState, onFavorite = viewModel::onFavoriteChange)
     }
 }
