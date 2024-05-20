@@ -91,7 +91,6 @@ android {
             // Excludes needless files from builds
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
             excludes += "/okhttp3/internal/publicsuffix/NOTICE"
-            excludes += "/META-INF/androidx.*.version"
             excludes += "/META-INF/com.google.*.version"
             excludes += "/META-INF/kotlinx_*.version"
             excludes += "/DebugProbesKt.bin"
@@ -112,7 +111,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.runtime.compose)
-    implementation(libs.compose.navigation)
+    implementation(libs.navigation.compose)
 
     // DI
     implementation(libs.dagger.hilt.android)
@@ -146,6 +145,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
+    androidTestImplementation(libs.navigation.testing)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     debugImplementation(libs.leakcanary.android)

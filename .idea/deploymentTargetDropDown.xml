@@ -2,7 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="BottomNavigationTest">
+        <State />
+      </entry>
       <entry key="MVVM Sample.MVVM_Sample.app">
+        <State />
+      </entry>
+      <entry key="MyFirstTest">
         <State />
       </entry>
       <entry key="app">
@@ -20,6 +26,9 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-04-17T10:10:30.515180200Z" />
         </State>
+      </entry>
+      <entry key="myTest()">
+        <State />
       </entry>
     </value>
   </component>
