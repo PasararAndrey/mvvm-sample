@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class BookRepositoryImpl @Inject constructor(
@@ -32,11 +33,26 @@ class BookRepositoryImpl @Inject constructor(
                 emit(RequestResult.Success(BookModel.fromEntity(book)))
             } else {
                 val remoteBook = booksService.getBookById(id).getOrThrow()
-                booksDatabase.booksDao.insert(BookEntity.fromDto(remoteBook))
+                booksDatabase.booksDao.upsert(BookEntity.fromDto(remoteBook))
                 emit(RequestResult.Success(BookModel.fromDto(remoteBook)))
             }
         }.catch { throwable ->
             emit(RequestResult.Error(error = throwable))
         }
+    }
+
+    override suspend fun updateFavorite(id: Long): BookModel {
+        val book = booksDatabase.booksDao.getById(id).let { entity ->
+            checkNotNull(entity).copy(isFavorite = !entity.isFavorite)
+        }
+        booksDatabase.booksDao.upsert(book)
+        return BookModel.fromEntity(book)
+    }
+
+    override fun getFavoriteBooks(): Flow<RequestResult<List<BookModel>>> {
+        return booksDatabase.booksDao.getFavorites()
+            .map { entities ->
+                RequestResult.Success(entities.map { entity -> BookModel.fromEntity(entity) })
+            }
     }
 }

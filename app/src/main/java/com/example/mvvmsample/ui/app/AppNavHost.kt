@@ -22,7 +22,7 @@ fun AppNavHost(
         modifier = Modifier.padding(innerPadding),
     ) {
         homeGraph()
-        favoriteGraph()
+        favoriteGraph(navController)
         booksGraph(navController)
     }
 }

@@ -13,6 +13,7 @@ data class BookModel(
     val rating: Double? = null,
     val title: String? = null,
     val subtitle: String? = null,
+    val isFavorite: Boolean = false,
 ) {
     data class Author(
         val id: Int,
@@ -47,6 +48,7 @@ data class BookModel(
                     rating = rating,
                     title = title,
                     subtitle = subtitle,
+                    isFavorite = isFavorite,
                 )
             }
     }

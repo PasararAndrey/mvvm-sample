@@ -17,6 +17,7 @@ data class BookEntity(
     val rating: Double? = null,
     val title: String? = null,
     val subtitle: String? = null,
+    val isFavorite: Boolean = false,
 ) {
     @Serializable
     data class Author(
