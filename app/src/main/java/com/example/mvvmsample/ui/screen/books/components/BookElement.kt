@@ -23,6 +23,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +35,7 @@ import com.example.mvvmsample.R
 
 @Composable
 fun BookElement(
+    id: Long,
     title: String?,
     subtitle: String?,
     imageUrl: String?,
@@ -40,7 +43,7 @@ fun BookElement(
     onClick: () -> Unit,
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier.semantics { testTag = id.toString() },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         onClick = { onClick() },
     ) {
@@ -70,9 +73,7 @@ fun BookElement(
                     is AsyncImagePainter.State.Success -> SubcomposeAsyncImageContent()
                 }
             }
-
             Spacer(modifier = Modifier.width(8.dp))
-
             @Suppress("MagicNumber")
             Column(
                 modifier = Modifier
@@ -84,7 +85,9 @@ fun BookElement(
                     text = title ?: stringResource(R.string.no_title_provided),
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .semantics { testTag = "title $id" },
                     maxLines = 4,
                     overflow = TextOverflow.Ellipsis,
                 )
@@ -104,6 +107,7 @@ fun BookElement(
 @Preview(showBackground = true)
 private fun BookElementPreview() {
     BookElement(
+        id = 0,
         "Title",
         null,
         "",

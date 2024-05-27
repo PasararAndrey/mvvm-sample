@@ -11,19 +11,26 @@ import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
 import com.example.mvvmsample.navigation.destinations.MainBottomNavDestinations
 import com.example.mvvmsample.ui.app.AppContent
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@HiltAndroidTest
 class BottomNavigationTest {
-    @get:Rule
+    @get:Rule(order = 0)
+    val hiltRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
     val composeRule = createAndroidComposeRule<MainActivity>()
 
     private lateinit var navController: TestNavHostController
     private val screens = MainBottomNavDestinations.destinations()
 
     @Before
-    fun setupAppNavHost() {
+    fun init() {
+        hiltRule.inject()
         composeRule.activity.setContent {
             navController = TestNavHostController(LocalContext.current.applicationContext)
             navController.navigatorProvider.addNavigator(ComposeNavigator())

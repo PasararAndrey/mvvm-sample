@@ -23,8 +23,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -58,6 +61,10 @@ private fun ScreenContent(
     uiState: BookDetailsUIState,
     onFavorite: () -> Unit,
 ) {
+    val context = LocalContext.current
+    val favoriteIcon = rememberFavoriteIcon(uiState)
+    uiState.book.rating?.let { rating -> Text(text = stringResource(R.string.rating, rating)) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -67,7 +74,6 @@ private fun ScreenContent(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Spacer(modifier = Modifier.size(96.dp))
-
         SubcomposeAsyncImage(
             model = uiState.book.image,
             contentDescription = null,
@@ -88,15 +94,16 @@ private fun ScreenContent(
         }
 
         Text(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .semantics { testTag = context.getString(R.string.semantics_book_details_title) },
             text = uiState.book.title ?: stringResource(id = R.string.no_title_provided),
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center,
         )
 
         Text(
-            text = uiState.book.authors?.joinToString()
-                ?: stringResource(R.string.no_information_about_authors),
+            text = uiState.book.authors?.joinToString() ?: stringResource(R.string.no_information_about_authors),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(end = 4.dp),
@@ -105,10 +112,6 @@ private fun ScreenContent(
             textAlign = TextAlign.Center,
         )
 
-        uiState.book.rating?.let { rating ->
-            Text(text = stringResource(R.string.rating, rating))
-        }
-
         Text(
             text = uiState.book.description ?: stringResource(R.string.no_description_provided),
             style = MaterialTheme.typography.bodyLarge,
@@ -116,10 +119,13 @@ private fun ScreenContent(
             textAlign = TextAlign.Center,
         )
 
-        val favoriteIcon = rememberFavoriteIcon(uiState)
-
-        IconButton(onClick = onFavorite) {
-            Icon(favoriteIcon, null)
+        IconButton(
+            onClick = onFavorite,
+            Modifier.semantics {
+                testTag = context.getString(R.string.semantics_is_favorite, uiState.book.isFavorite.toString())
+            },
+        ) {
+            Icon(favoriteIcon, stringResource(id = R.string.semantics_book_details_favorite_icon))
         }
     }
 }

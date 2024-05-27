@@ -37,7 +37,7 @@ fun FavoriteScreen(
             ) {
                 items(favorites) { book ->
                     with(book) {
-                        BookElement(title, subtitle, image, Modifier.fillMaxWidth()) {
+                        BookElement(id.toLong(), title, subtitle, image, Modifier.fillMaxWidth()) {
                             onNavigateToBookDetails(id.toLong())
                         }
                     }

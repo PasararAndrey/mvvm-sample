@@ -6,10 +6,4 @@
     <string name="rating">"Rating: %1$s"</string>
     <string name="no_information_about_authors">No information about authors</string>
     <string name="no_subtitle_provided">No subtitle provided</string>
-
-    <string name="semantics_home_screen">Home screen</string>
-    <string name="semantics_book_details_screen">Book details screen</string>
-    <string name="semantics_books_screen">Books screen</string>
-    <string name="semantics_favorite_screen">Favorite screen</string>
-
 </resources>
