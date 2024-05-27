@@ -14,7 +14,7 @@ import com.example.mvvmsample.navigation.graph.homeGraph
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    innerPadding: PaddingValues,
+    innerPadding: PaddingValues = PaddingValues(),
 ) {
     NavHost(
         navController = navController,

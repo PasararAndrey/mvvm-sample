@@ -12,11 +12,15 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.example.mvvmsample.R
 import com.example.mvvmsample.ui.screen.books.components.BookElement
 import com.example.mvvmsample.ui.screen.books.model.BooksUI
 
@@ -27,13 +31,18 @@ fun BooksScreen(
     uiState: BooksUIState,
 ) {
     val books = uiState.books.collectAsLazyPagingItems()
+    val context = LocalContext.current
 
     Box(modifier = modifier.fillMaxSize()) {
         if (books.loadState.refresh is LoadState.Loading) {
             CircularProgressIndicator(Modifier.align(Alignment.Center))
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .semantics {
+                        testTag = context.getString(R.string.semantics_books_list)
+                    },
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
@@ -56,7 +65,7 @@ fun LazyListScope.listContent(
         val book: BooksUI? = books[index]
         with(book) {
             if (this != null) {
-                BookElement(title, subtitle, image, Modifier.fillMaxWidth()) {
+                BookElement(id, title, subtitle, image, Modifier.fillMaxWidth()) {
                     onNavigateToBookDetails(id)
                 }
             }

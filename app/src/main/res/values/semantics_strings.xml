@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="semantics_home_screen">Home screen</string>
+    <string name="semantics_book_details_screen">Book details screen</string>
+    <string name="semantics_books_screen">Books screen</string>
+    <string name="semantics_favorite_screen">Favorite screen</string>
+    <string name="semantics_book_details_title">Book details title</string>
+    <string name="semantics_book_details_favorite_icon">>Book details favorite icon</string>
+    <string name="semantics_books_list">Books list</string>
+    <string name="semantics_is_favorite">Is favorite? : %S </string>
+</resources>
