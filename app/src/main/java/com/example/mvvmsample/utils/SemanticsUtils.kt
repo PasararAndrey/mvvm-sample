@@ -21,6 +21,7 @@ data class SemanticsStrings(
     val bookDetailsFavoriteIcon: String = "Book details favorite icon",
     val bookDetailsLoadingIndicator: String = "Book details loading indicator",
     val booksList: String = "Books list",
+    val booksListLoadingIndicator: String = "Books list loading indicator",
 )
 
 val ImageVectorSemantic = SemanticsPropertyKey<ImageVector>("ImageVector")

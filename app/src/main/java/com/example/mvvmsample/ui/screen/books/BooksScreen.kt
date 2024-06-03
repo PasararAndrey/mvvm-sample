@@ -12,6 +12,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
@@ -47,7 +48,11 @@ fun BooksScreen(
             progressIndicator(books)
         }
         if (books.loadState.refresh is LoadState.Loading) {
-            CircularProgressIndicator(Modifier.align(Alignment.Center))
+            CircularProgressIndicator(
+                Modifier
+                    .align(Alignment.Center)
+                    .testTag(semanticsStrings.booksListLoadingIndicator),
+            )
         }
     }
 }
