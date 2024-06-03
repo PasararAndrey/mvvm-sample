@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
 import com.example.mvvmsample.navigation.destinations.MainBottomNavDestinations
 import com.example.mvvmsample.navigation.destinations.NavDestinations
-import com.example.mvvmsample.navigation.navgraphbuilder.settings.favoriteScreen
+import com.example.mvvmsample.navigation.navgraphbuilder.favorite.favoriteScreen
 import com.example.mvvmsample.navigation.utils.navigateToBookDetails
 
 fun NavGraphBuilder.favoriteGraph(navController: NavController) {

@@ -6,8 +6,8 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -29,7 +29,7 @@ fun BottomNavBar(
 
             NavigationBarItem(
                 modifier = Modifier.semantics {
-                    contentDescription = screen.route
+                    testTag = screen.route
                 },
                 selected = isSelected,
                 onClick = {

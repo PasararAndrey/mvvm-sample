@@ -3,10 +3,13 @@
 package com.example.mvvmsample.books
 
 import androidx.activity.compose.setContent
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertTextEquals
-import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -16,10 +19,12 @@ import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.NavHost
 import androidx.navigation.testing.TestNavHostController
 import com.example.mvvmsample.MainActivity
-import com.example.mvvmsample.R
+import com.example.mvvmsample.hasImageVector
 import com.example.mvvmsample.navigation.destinations.MainBottomNavDestinations
 import com.example.mvvmsample.navigation.graph.booksGraph
 import com.example.mvvmsample.ui.theme.ComposeEducationTheme
+import com.example.mvvmsample.utils.LocalSemanticsStrings
+import com.example.mvvmsample.utils.SemanticsStrings
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
@@ -36,6 +41,7 @@ class BooksGraphTest {
     val composeRule = createAndroidComposeRule<MainActivity>()
 
     private lateinit var navController: TestNavHostController
+    private val semantics: SemanticsStrings = SemanticsStrings()
 
     @Before
     fun init() {
@@ -44,8 +50,13 @@ class BooksGraphTest {
             navController = TestNavHostController(composeRule.activity.applicationContext)
             navController.navigatorProvider.addNavigator(ComposeNavigator())
             ComposeEducationTheme {
-                NavHost(navController = navController, startDestination = MainBottomNavDestinations.BooksGraph.route) {
-                    booksGraph(navController)
+                CompositionLocalProvider(LocalSemanticsStrings provides semantics) {
+                    NavHost(
+                        navController = navController,
+                        startDestination = MainBottomNavDestinations.BooksGraph.route,
+                    ) {
+                        booksGraph(navController)
+                    }
                 }
             }
         }
@@ -65,28 +76,13 @@ class BooksGraphTest {
             val testId = "1"
             composeRule.waitUntilAtLeastOneExists(hasTestTag(testId))
             composeRule.onNodeWithTag(testId).performClick()
-            composeRule.waitUntilAtLeastOneExists(
-                hasContentDescription(
-                    composeRule.activity.applicationContext.getString(R.string.semantics_book_details_favorite_icon),
-                ),
-            )
-            composeRule.onNodeWithTag(
-                composeRule.activity.applicationContext.getString(R.string.semantics_book_details_title),
-            ).assertTextEquals("Book title $testId")
-
-            val favoriteNode = composeRule.onNodeWithTag(
-                composeRule.activity.applicationContext.getString(
-                    R.string.semantics_is_favorite,
-                    false.toString(),
-                ),
-            )
-            favoriteNode.assertExists()
-            favoriteNode.performClick()
-            composeRule.onNodeWithTag(
-                composeRule.activity.applicationContext.getString(
-                    R.string.semantics_is_favorite,
-                    true.toString(),
-                ),
-            )
+            composeRule.waitUntilAtLeastOneExists(hasTestTag(semantics.bookDetailsFavoriteIcon))
+            composeRule.onNodeWithTag(semantics.bookDetailsTitle).assertTextEquals("Book title $testId")
+            composeRule
+                .onNode(hasTestTag(semantics.bookDetailsFavoriteIcon).and(hasImageVector(Icons.Default.FavoriteBorder)))
+                .assertExists()
+                .performClick()
+            composeRule.waitUntilAtLeastOneExists(hasImageVector(Icons.Default.Favorite))
+            composeRule.onNode(hasImageVector(Icons.Default.Favorite)).assertExists()
         }
 }

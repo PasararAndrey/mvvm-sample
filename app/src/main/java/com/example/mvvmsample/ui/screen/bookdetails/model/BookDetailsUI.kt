@@ -6,10 +6,10 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 data class BookDetailsUI(
     val bookId: String = "",
-    val title: String? = null,
-    val image: String? = null,
-    val description: String? = null,
-    val authors: List<String>? = null,
+    val title: String? = "",
+    val image: String? = "",
+    val description: String? = "",
+    val authors: List<String>? = emptyList(),
     val rating: Double? = null,
     val isFavorite: Boolean = false,
 ) {
