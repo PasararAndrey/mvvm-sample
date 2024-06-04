@@ -34,25 +34,26 @@ fun BooksScreen(
     val semanticsStrings = LocalSemanticsStrings.current
 
     Box(modifier = modifier.fillMaxSize()) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .semantics {
-                    testTag = semanticsStrings.booksList
-                },
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
-        ) {
-            listContent(books, onNavigateToBookDetails)
-            progressIndicator(books)
-        }
         if (books.loadState.refresh is LoadState.Loading) {
             CircularProgressIndicator(
                 Modifier
                     .align(Alignment.Center)
                     .testTag(semanticsStrings.booksListLoadingIndicator),
             )
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .semantics {
+                        testTag = semanticsStrings.booksList
+                    },
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
+            ) {
+                listContent(books, onNavigateToBookDetails)
+                progressIndicator(books)
+            }
         }
     }
 }
