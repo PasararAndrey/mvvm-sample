@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTestApi::class)
 
-package com.example.mvvmsample.books
+package com.example.mvvmsample.integration.books
 
 import androidx.activity.compose.setContent
 import androidx.compose.material.icons.Icons
@@ -32,6 +32,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@ExperimentalTestApi
 @HiltAndroidTest
 class BooksGraphTest {
     @get:Rule(order = 0)
