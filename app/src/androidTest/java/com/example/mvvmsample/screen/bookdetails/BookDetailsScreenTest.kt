@@ -14,7 +14,7 @@ import com.example.mvvmsample.ui.screen.bookdetails.BookDetailsScreen
 import com.example.mvvmsample.ui.screen.bookdetails.BookDetailsUIState
 import com.example.mvvmsample.ui.screen.bookdetails.model.BookDetailsUI
 import com.example.mvvmsample.ui.theme.ComposeEducationTheme
-import com.example.mvvmsample.utils.LocalSemanticsStrings
+import com.example.mvvmsample.utils.LocalSemantics
 import com.example.mvvmsample.utils.SemanticsStrings
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -53,7 +53,7 @@ class BookDetailsScreenTest {
 
         composeRule.activity.setContent {
             ComposeEducationTheme {
-                CompositionLocalProvider(LocalSemanticsStrings provides semantics) {
+                CompositionLocalProvider(LocalSemantics provides semantics) {
                     BookDetailsScreen(uiState = uiState)
                 }
             }
@@ -70,7 +70,7 @@ class BookDetailsScreenTest {
     fun shouldUpdateFavoriteStateOnClick() {
         var favoriteClicked = false
         composeRule.activity.setContent {
-            CompositionLocalProvider(LocalSemanticsStrings provides semantics) {
+            CompositionLocalProvider(LocalSemantics provides semantics) {
                 BookDetailsScreen(uiState = BookDetailsUIState()) {
                     favoriteClicked = true
                 }
@@ -92,7 +92,7 @@ class BookDetailsScreenTest {
         )
         val uiState = BookDetailsUIState(book)
         composeRule.activity.setContent {
-            CompositionLocalProvider(LocalSemanticsStrings provides semantics) {
+            CompositionLocalProvider(LocalSemantics provides semantics) {
                 BookDetailsScreen(
                     uiState = uiState,
                 )
@@ -111,7 +111,7 @@ class BookDetailsScreenTest {
     @Test
     fun shouldShowLoadingIndicator() {
         composeRule.activity.setContent {
-            CompositionLocalProvider(LocalSemanticsStrings provides semantics) {
+            CompositionLocalProvider(LocalSemantics provides semantics) {
                 BookDetailsScreen(uiState = BookDetailsUIState(isLoading = true))
             }
         }

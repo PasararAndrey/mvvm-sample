@@ -11,13 +11,13 @@ import androidx.navigation.compose.composable
 import com.example.mvvmsample.navigation.destinations.NavDestinations
 import com.example.mvvmsample.ui.screen.books.BooksScreen
 import com.example.mvvmsample.ui.screen.books.BooksViewModel
-import com.example.mvvmsample.utils.LocalSemanticsStrings
+import com.example.mvvmsample.utils.LocalSemantics
 
 fun NavGraphBuilder.booksScreen(onNavigateToBoolDetails: (id: Long) -> Unit) {
     composable(route = NavDestinations.Books.route) {
         val viewModel = hiltViewModel<BooksViewModel>()
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-        val semanticsStrings = LocalSemanticsStrings.current
+        val semanticsStrings = LocalSemantics.current
         BooksScreen(
             uiState = uiState,
             onNavigateToBookDetails = onNavigateToBoolDetails,

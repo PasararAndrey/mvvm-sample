@@ -11,13 +11,13 @@ import androidx.navigation.compose.composable
 import com.example.mvvmsample.navigation.destinations.NavDestinations
 import com.example.mvvmsample.ui.screen.favorite.FavoriteScreen
 import com.example.mvvmsample.ui.screen.favorite.FavoriteViewModel
-import com.example.mvvmsample.utils.LocalSemanticsStrings
+import com.example.mvvmsample.utils.LocalSemantics
 
 fun NavGraphBuilder.favoriteScreen(onNavigateToBoolDetails: (id: Long) -> Unit) {
     composable(route = NavDestinations.Favorite.route) {
         val viewModel: FavoriteViewModel = hiltViewModel()
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-        val semanticsStrings = LocalSemanticsStrings.current
+        val semanticsStrings = LocalSemantics.current
         FavoriteScreen(
             uiState = uiState,
             onNavigateToBookDetails = onNavigateToBoolDetails,

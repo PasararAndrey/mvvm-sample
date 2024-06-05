@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import com.example.mvvmsample.ui.app.App
 import com.example.mvvmsample.ui.theme.ComposeEducationTheme
-import com.example.mvvmsample.utils.LocalSemanticsStrings
+import com.example.mvvmsample.utils.LocalSemantics
 import com.example.mvvmsample.utils.SemanticsStrings
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            CompositionLocalProvider(LocalSemanticsStrings provides SemanticsStrings()) {
+            CompositionLocalProvider(LocalSemantics provides SemanticsStrings()) {
                 ComposeEducationTheme {
                     App()
                 }

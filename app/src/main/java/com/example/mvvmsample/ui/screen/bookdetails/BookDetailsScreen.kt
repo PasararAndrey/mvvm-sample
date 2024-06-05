@@ -37,7 +37,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.mvvmsample.R
 import com.example.mvvmsample.ui.screen.bookdetails.model.BookDetailsUI
-import com.example.mvvmsample.utils.LocalSemanticsStrings
+import com.example.mvvmsample.utils.LocalSemantics
 import com.example.mvvmsample.utils.imageVector
 
 @Composable
@@ -46,7 +46,7 @@ fun BookDetailsScreen(
     modifier: Modifier = Modifier,
     onFavorite: () -> Unit = {},
 ) {
-    val semantics = LocalSemanticsStrings.current
+    val semantics = LocalSemantics.current
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -68,7 +68,7 @@ private fun ScreenContent(
     bookDetailsState: BookDetailsUI,
     onFavorite: () -> Unit,
 ) {
-    val semantics = LocalSemanticsStrings.current
+    val semantics = LocalSemantics.current
     val favoriteIcon: ImageVector = rememberFavoriteIcon(bookDetailsState.isFavorite)
 
     Column(

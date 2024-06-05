@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 
-val LocalSemanticsStrings = staticCompositionLocalOf<SemanticsStrings> { error("No semantics strings provided") }
+val LocalSemantics = staticCompositionLocalOf<SemanticsStrings> { error("No semantics strings provided") }
 
 @Immutable
 data class SemanticsStrings(
@@ -22,6 +22,7 @@ data class SemanticsStrings(
     val bookDetailsLoadingIndicator: String = "Book details loading indicator",
     val booksList: String = "Books list",
     val booksListLoadingIndicator: String = "Books list loading indicator",
+    val favoriteBooksLoadingIndicator: String = "Favorite books loading indicator",
 )
 
 val ImageVectorSemantic = SemanticsPropertyKey<ImageVector>("ImageVector")

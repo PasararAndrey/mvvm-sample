@@ -86,8 +86,7 @@ fun BookElement(
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .semantics { testTag = "title $id" },
+                        .fillMaxWidth(),
                     maxLines = 4,
                     overflow = TextOverflow.Ellipsis,
                 )

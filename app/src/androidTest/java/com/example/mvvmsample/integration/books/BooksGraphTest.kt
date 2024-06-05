@@ -8,22 +8,22 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.ExperimentalTestApi
-import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasTestTag
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.NavHost
 import androidx.navigation.testing.TestNavHostController
 import com.example.mvvmsample.MainActivity
+import com.example.mvvmsample.fake.FakeBooksService
 import com.example.mvvmsample.hasImageVector
 import com.example.mvvmsample.navigation.destinations.MainBottomNavDestinations
 import com.example.mvvmsample.navigation.graph.booksGraph
 import com.example.mvvmsample.ui.theme.ComposeEducationTheme
-import com.example.mvvmsample.utils.LocalSemanticsStrings
+import com.example.mvvmsample.utils.LocalSemantics
 import com.example.mvvmsample.utils.SemanticsStrings
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -43,6 +43,7 @@ class BooksGraphTest {
 
     private lateinit var navController: TestNavHostController
     private val semantics: SemanticsStrings = SemanticsStrings()
+    private val fakeBook = FakeBooksService.books.first().first()
 
     @Before
     fun init() {
@@ -51,7 +52,7 @@ class BooksGraphTest {
             navController = TestNavHostController(composeRule.activity.applicationContext)
             navController.navigatorProvider.addNavigator(ComposeNavigator())
             ComposeEducationTheme {
-                CompositionLocalProvider(LocalSemanticsStrings provides semantics) {
+                CompositionLocalProvider(LocalSemantics provides semantics) {
                     NavHost(
                         navController = navController,
                         startDestination = MainBottomNavDestinations.BooksGraph.route,
@@ -66,23 +67,30 @@ class BooksGraphTest {
     @Test
     fun shouldLoadFirstPageCorrectly() =
         runTest {
-            val testId = "1"
-            composeRule.waitUntilAtLeastOneExists(hasTestTag(testId))
-            composeRule.onNodeWithTag(testId).assert(hasText("Book title $testId"))
+            composeRule.waitUntilAtLeastOneExists(hasTestTag(fakeBook.id.toString()))
+            composeRule.onNodeWithText(fakeBook.title, substring = true).assertExists()
         }
 
     @Test
-    fun shouldNavigateToBookDetailsAndUpdateFavorite() =
+    fun shouldNavigateToBookDetails() =
         runTest {
-            val testId = "1"
-            composeRule.waitUntilAtLeastOneExists(hasTestTag(testId))
-            composeRule.onNodeWithTag(testId).performClick()
+            composeRule.waitUntilAtLeastOneExists(hasTestTag(fakeBook.id.toString()))
+            composeRule.onNodeWithTag(fakeBook.id.toString()).performClick()
             composeRule.waitUntilAtLeastOneExists(hasTestTag(semantics.bookDetailsFavoriteIcon))
-            composeRule.onNodeWithTag(semantics.bookDetailsTitle).assertTextEquals("Book title $testId")
-            composeRule
-                .onNode(hasTestTag(semantics.bookDetailsFavoriteIcon).and(hasImageVector(Icons.Default.FavoriteBorder)))
-                .assertExists()
-                .performClick()
+            composeRule.onNodeWithTag(semantics.bookDetailsTitle).assertTextEquals(fakeBook.title)
+            composeRule.onNode(
+                hasTestTag(semantics.bookDetailsFavoriteIcon).and(hasImageVector(Icons.Default.FavoriteBorder)),
+            ).assertExists()
+        }
+
+    @Test
+    fun shouldNavigateToBookDetailsAndUpdateFavoriteIcon() =
+        runTest {
+            composeRule.waitUntilAtLeastOneExists(hasTestTag(fakeBook.id.toString()))
+            composeRule.onNodeWithTag(fakeBook.id.toString()).performClick()
+            composeRule.waitUntilAtLeastOneExists(hasTestTag(semantics.bookDetailsFavoriteIcon))
+            composeRule.onNodeWithTag(semantics.bookDetailsTitle).assertTextEquals(fakeBook.title)
+            composeRule.onNode(hasImageVector(Icons.Default.FavoriteBorder)).performClick()
             composeRule.waitUntilAtLeastOneExists(hasImageVector(Icons.Default.Favorite))
             composeRule.onNode(hasImageVector(Icons.Default.Favorite)).assertExists()
         }

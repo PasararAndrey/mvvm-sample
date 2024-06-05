@@ -7,7 +7,7 @@ import com.example.mvvmsample.utils.RequestResult
 import kotlinx.coroutines.flow.Flow
 
 interface BookRepository {
-    fun getSearchBookStream(): Flow<PagingData<BookPreviewEntity>>
+    fun getBooks(): Flow<PagingData<BookPreviewEntity>>
 
     fun getBookById(id: Long): Flow<RequestResult<BookModel>>
 

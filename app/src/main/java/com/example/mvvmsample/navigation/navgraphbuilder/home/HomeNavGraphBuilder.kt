@@ -7,11 +7,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.mvvmsample.navigation.destinations.NavDestinations
 import com.example.mvvmsample.ui.screen.home.HomeScreen
-import com.example.mvvmsample.utils.LocalSemanticsStrings
+import com.example.mvvmsample.utils.LocalSemantics
 
 fun NavGraphBuilder.homeScreen() {
     composable(route = NavDestinations.Home.route) {
-        val semanticsStrings = LocalSemanticsStrings.current
+        val semanticsStrings = LocalSemantics.current
         HomeScreen(
             modifier = Modifier.semantics {
                 testTag = semanticsStrings.homeScreen

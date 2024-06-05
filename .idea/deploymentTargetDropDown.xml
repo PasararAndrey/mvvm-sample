@@ -2,13 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="BookDetailsScreenTest">
+      <entry key="BooksGraphTest (1)">
         <State />
       </entry>
-      <entry key="BooksGraphTest">
+      <entry key="BooksScreenTest">
         <State />
       </entry>
-      <entry key="BottomNavigationTest">
+      <entry key="FavoriteScreenTest">
         <State />
       </entry>
       <entry key="app">
@@ -27,7 +27,10 @@
           <timeTargetWasSelectedWithDropDown value="2024-04-17T10:10:30.515180200Z" />
         </State>
       </entry>
-      <entry key="shouldNavigateToBookDetailsAndUpdateFavorite()">
+      <entry key="shouldDisplayBooks()">
+        <State />
+      </entry>
+      <entry key="shouldUpdateBookIdOnNavigateToBookDetails()">
         <State />
       </entry>
     </value>

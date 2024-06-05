@@ -11,25 +11,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
 class BooksViewModel @Inject constructor(
     private val bookRepository: BookRepository,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(BooksUIState())
+    private val _uiState = MutableStateFlow(
+        BooksUIState(
+            books = bookRepository.getBooks().map { pagingData ->
+                pagingData.map { bookEntity ->
+                    BooksUI.fromEntity(bookEntity)
+                }
+            }.cachedIn(viewModelScope),
+        ),
+    )
     val uiState: StateFlow<BooksUIState> = _uiState.asStateFlow()
-
-    init {
-        _uiState.update { booksUIState ->
-            booksUIState.copy(
-                books = bookRepository.getSearchBookStream().map { pagingData ->
-                    pagingData.map { bookEntity ->
-                        BooksUI.fromEntity(bookEntity)
-                    }
-                }.cachedIn(viewModelScope),
-            )
-        }
-    }
 }

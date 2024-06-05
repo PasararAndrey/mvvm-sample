@@ -12,7 +12,7 @@ import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
 import com.example.mvvmsample.navigation.destinations.MainBottomNavDestinations
 import com.example.mvvmsample.ui.app.AppContent
-import com.example.mvvmsample.utils.LocalSemanticsStrings
+import com.example.mvvmsample.utils.LocalSemantics
 import com.example.mvvmsample.utils.SemanticsStrings
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -39,7 +39,7 @@ class BottomNavigationTest {
         composeRule.activity.setContent {
             navController = TestNavHostController(LocalContext.current.applicationContext)
             navController.navigatorProvider.addNavigator(ComposeNavigator())
-            CompositionLocalProvider(LocalSemanticsStrings provides semantics) {
+            CompositionLocalProvider(LocalSemantics provides semantics) {
                 AppContent(screens, navController)
             }
         }
