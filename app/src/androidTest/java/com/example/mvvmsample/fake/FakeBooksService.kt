@@ -6,12 +6,6 @@ import com.example.mvvmsample.data.books.remote.model.BookSortBy
 import com.example.mvvmsample.data.books.remote.model.BooksDto
 
 class FakeBooksService : BooksService {
-    private val books = listOf(
-        List(1000) {
-            BooksDto.BookPreviewDto(it.toLong(), it.toString(), title = "Book title $it")
-        },
-    )
-
     override suspend fun searchBooks(
         query: String?,
         sortBy: BookSortBy?,
@@ -31,10 +25,25 @@ class FakeBooksService : BooksService {
     }
 
     override suspend fun getBookById(id: Long): Result<BookDTO> {
-        return Result.success(BookDTO(id.toInt(), identifiers = BookDTO.Identifiers(), title = "Book title $id"))
+        return Result.success(
+            BookDTO(
+                id.toInt(),
+                identifiers = BookDTO.Identifiers(),
+                title = produceFakeTitleById(id),
+            ),
+        )
     }
 
     companion object {
         const val DEFAULT_OFFSET = 20
+        val books = listOf(
+            List(1000) { id ->
+                BooksDto.BookPreviewDto(id.toLong(), id.toString(), title = produceFakeTitleById(id.toLong()))
+            },
+        )
+
+        private fun produceFakeTitleById(id: Long): String {
+            return "Book title $id"
+        }
     }
 }

@@ -13,9 +13,9 @@ import com.example.mvvmsample.ui.screen.bookdetails.BookDetailsScreen
 import com.example.mvvmsample.ui.screen.bookdetails.BookDetailsViewModel
 import com.example.mvvmsample.utils.LocalSemantics
 
-fun NavGraphBuilder.bookDetailsScreen() {
+fun NavGraphBuilder.favoriteBookDetailsScreen() {
     composable(
-        route = NavDestinations.BookDetails.route,
+        route = NavDestinations.BookDetails.favoriteRoute,
         arguments = NavDestinations.BookDetails.arguments,
     ) {
         val viewModel: BookDetailsViewModel = hiltViewModel()

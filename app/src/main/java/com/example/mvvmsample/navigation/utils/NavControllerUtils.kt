@@ -8,7 +8,14 @@ fun NavController.navigateToBookDetails(
     bookId: Long,
     navOptions: NavOptions? = null,
 ) {
-    this.navigate(NavDestinations.BookDetails.destinationWithArg(bookId), navOptions)
+    this.navigate(NavDestinations.BookDetails.booksDestinationWithArg(bookId), navOptions)
+}
+
+fun NavController.navigateToFavoriteBookDetails(
+    bookId: Long,
+    navOptions: NavOptions? = null,
+) {
+    this.navigate(NavDestinations.BookDetails.favoriteBookDestinationWithArg(bookId), navOptions)
 }
 
 fun <T> NavController.navigateBackWithResult(

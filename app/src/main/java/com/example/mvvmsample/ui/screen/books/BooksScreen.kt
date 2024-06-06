@@ -12,7 +12,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
@@ -20,9 +20,9 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.example.mvvmsample.R
 import com.example.mvvmsample.ui.screen.books.components.BookElement
 import com.example.mvvmsample.ui.screen.books.model.BooksUI
+import com.example.mvvmsample.utils.LocalSemantics
 
 @Composable
 fun BooksScreen(
@@ -31,17 +31,21 @@ fun BooksScreen(
     uiState: BooksUIState,
 ) {
     val books = uiState.books.collectAsLazyPagingItems()
-    val context = LocalContext.current
+    val semanticsStrings = LocalSemantics.current
 
     Box(modifier = modifier.fillMaxSize()) {
         if (books.loadState.refresh is LoadState.Loading) {
-            CircularProgressIndicator(Modifier.align(Alignment.Center))
+            CircularProgressIndicator(
+                Modifier
+                    .align(Alignment.Center)
+                    .testTag(semanticsStrings.booksListLoadingIndicator),
+            )
         } else {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .semantics {
-                        testTag = context.getString(R.string.semantics_books_list)
+                        testTag = semanticsStrings.booksList
                     },
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -54,7 +58,7 @@ fun BooksScreen(
     }
 }
 
-fun LazyListScope.listContent(
+private fun LazyListScope.listContent(
     books: LazyPagingItems<BooksUI>,
     onNavigateToBookDetails: (bookId: Long) -> Unit,
 ) {
@@ -73,7 +77,7 @@ fun LazyListScope.listContent(
     }
 }
 
-fun LazyListScope.progressIndicator(books: LazyPagingItems<BooksUI>) {
+private fun LazyListScope.progressIndicator(books: LazyPagingItems<BooksUI>) {
     item {
         if (books.loadState.append is LoadState.Loading) {
             CircularProgressIndicator(modifier = Modifier.padding(16.dp))

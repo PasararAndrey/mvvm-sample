@@ -12,8 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.example.mvvmsample.ui.screen.books.components.BookElement
+import com.example.mvvmsample.utils.LocalSemantics
 
 @Composable
 fun FavoriteScreen(
@@ -25,9 +27,15 @@ fun FavoriteScreen(
         uiState.favoriteBooks
     }
 
+    val semantics = LocalSemantics.current
+
     Box(modifier = modifier.fillMaxSize()) {
         if (uiState.isLoading) {
-            CircularProgressIndicator(Modifier.align(Alignment.Center))
+            CircularProgressIndicator(
+                Modifier
+                    .align(Alignment.Center)
+                    .testTag(semantics.favoriteBooksLoadingIndicator),
+            )
         } else {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),

@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
+import javax.inject.Singleton
 
 @TestInstallIn(
     components = [SingletonComponent::class],
@@ -16,6 +17,7 @@ import dagger.hilt.testing.TestInstallIn
 @Module
 class TestDatabaseModule {
     @Provides
+    @Singleton
     fun provideSampleDatabase(
         @ApplicationContext context: Context,
     ): BooksDatabase {

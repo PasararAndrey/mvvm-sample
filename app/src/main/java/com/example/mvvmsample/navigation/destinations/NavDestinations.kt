@@ -9,9 +9,12 @@ sealed interface NavDestinations {
     data object BookDetails : NavDestinations {
         const val BOOK_ID = "book_id"
         override val route: String = "${Books.route}/{$BOOK_ID}"
+        val favoriteRoute: String = "${Favorite.route}/{$BOOK_ID}"
         val arguments = listOf(navArgument(BOOK_ID) { type = NavType.StringType })
 
-        fun destinationWithArg(bookId: Long) = "${Books.route}/$bookId"
+        fun booksDestinationWithArg(bookId: Long) = "${Books.route}/$bookId"
+
+        fun favoriteBookDestinationWithArg(bookId: Long) = "${Favorite.route}/$bookId"
     }
 
     data object Home : NavDestinations {

@@ -23,7 +23,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
@@ -36,6 +37,8 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.mvvmsample.R
 import com.example.mvvmsample.ui.screen.bookdetails.model.BookDetailsUI
+import com.example.mvvmsample.utils.LocalSemantics
+import com.example.mvvmsample.utils.imageVector
 
 @Composable
 fun BookDetailsScreen(
@@ -43,27 +46,30 @@ fun BookDetailsScreen(
     modifier: Modifier = Modifier,
     onFavorite: () -> Unit = {},
 ) {
+    val semantics = LocalSemantics.current
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.surfaceVariant),
     ) {
+        ScreenContent(uiState.book, onFavorite)
         if (uiState.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        } else {
-            ScreenContent(uiState, onFavorite)
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .testTag(semantics.bookDetailsLoadingIndicator),
+            )
         }
     }
 }
 
 @Composable
 private fun ScreenContent(
-    uiState: BookDetailsUIState,
+    bookDetailsState: BookDetailsUI,
     onFavorite: () -> Unit,
 ) {
-    val context = LocalContext.current
-    val favoriteIcon = rememberFavoriteIcon(uiState)
-    uiState.book.rating?.let { rating -> Text(text = stringResource(R.string.rating, rating)) }
+    val semantics = LocalSemantics.current
+    val favoriteIcon: ImageVector = rememberFavoriteIcon(bookDetailsState.isFavorite)
 
     Column(
         modifier = Modifier
@@ -75,7 +81,7 @@ private fun ScreenContent(
     ) {
         Spacer(modifier = Modifier.size(96.dp))
         SubcomposeAsyncImage(
-            model = uiState.book.image,
+            model = bookDetailsState.image,
             contentDescription = null,
             modifier = Modifier.size(192.dp),
         ) {
@@ -96,44 +102,57 @@ private fun ScreenContent(
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .semantics { testTag = context.getString(R.string.semantics_book_details_title) },
-            text = uiState.book.title ?: stringResource(id = R.string.no_title_provided),
+                .semantics { testTag = semantics.bookDetailsTitle },
+            text = bookDetailsState.title ?: stringResource(id = R.string.no_title_provided),
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center,
         )
 
         Text(
-            text = uiState.book.authors?.joinToString() ?: stringResource(R.string.no_information_about_authors),
+            text = bookDetailsState.authors?.joinToString() ?: stringResource(R.string.no_information_about_authors),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(end = 4.dp),
+                .padding(end = 4.dp)
+                .testTag(semantics.bookDetailsAuthors),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )
 
+        bookDetailsState.rating?.let { rating ->
+            Text(
+                text = stringResource(R.string.rating, rating),
+                modifier = Modifier.testTag(semantics.bookDetailsRating),
+            )
+        }
+
         Text(
-            text = uiState.book.description ?: stringResource(R.string.no_description_provided),
+            text = bookDetailsState.description ?: stringResource(R.string.no_description_provided),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
+            modifier = Modifier.testTag(semantics.bookDetailsDescription),
         )
 
         IconButton(
             onClick = onFavorite,
-            Modifier.semantics {
-                testTag = context.getString(R.string.semantics_is_favorite, uiState.book.isFavorite.toString())
-            },
+            Modifier.semantics { testTag = semantics.bookDetailsFavoriteIcon },
         ) {
-            Icon(favoriteIcon, stringResource(id = R.string.semantics_book_details_favorite_icon))
+            Icon(
+                favoriteIcon,
+                null,
+                modifier = Modifier.semantics {
+                    imageVector = favoriteIcon
+                },
+            )
         }
     }
 }
 
 @Composable
-private fun rememberFavoriteIcon(uiState: BookDetailsUIState) =
-    remember(uiState.book.isFavorite) {
-        if (uiState.book.isFavorite) {
+private fun rememberFavoriteIcon(isFavorite: Boolean) =
+    remember(isFavorite) {
+        if (isFavorite) {
             Icons.Default.Favorite
         } else {
             Icons.Default.FavoriteBorder

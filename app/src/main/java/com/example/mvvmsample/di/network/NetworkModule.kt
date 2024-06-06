@@ -15,11 +15,13 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 object NetworkModule {
     @Provides
+    @Singleton
     fun provideOkHttpClient(
         @InterceptorDebugLogging loggingInterceptor: Interceptor,
         @InterceptorBooksApiKey apiKeyInterceptor: Interceptor,
@@ -38,6 +40,7 @@ object NetworkModule {
         }
 
     @Provides
+    @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit
             .Builder()
@@ -48,10 +51,12 @@ object NetworkModule {
             .build()
 
     @Provides
+    @Singleton
     fun provideSampleService(retrofit: Retrofit): BooksService = retrofit.create(BooksService::class.java)
 
     @InterceptorDebugLogging
     @Provides
+    @Singleton
     fun provideDebugHttpLoggingInterceptor(): Interceptor {
         return HttpLoggingInterceptor().also {
             it.level = HttpLoggingInterceptor.Level.BODY
@@ -60,6 +65,7 @@ object NetworkModule {
 
     @InterceptorBooksApiKey
     @Provides
+    @Singleton
     fun provideBooksApiKeyHttpInterceptor(): Interceptor {
         return BooksApiKeyInterceptor(BuildConfig.API_KEY)
     }

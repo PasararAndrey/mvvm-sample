@@ -23,7 +23,7 @@ class BookRepositoryImpl @Inject constructor(
     private val bookPager: Pager<Int, BookPreviewEntity>,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : BookRepository {
-    override fun getSearchBookStream(): Flow<PagingData<BookPreviewEntity>> = bookPager.flow.flowOn(ioDispatcher)
+    override fun getBooks(): Flow<PagingData<BookPreviewEntity>> = bookPager.flow.flowOn(ioDispatcher)
 
     override fun getBookById(id: Long): Flow<RequestResult<BookModel>> {
         return flow {
