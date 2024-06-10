@@ -29,4 +29,11 @@ allprojects.onEach { project ->
     }
 }
 
+tasks.withType(Test::class) {
+    configure<JacocoTaskExtension> {
+        isIncludeNoLocationClasses = true
+        excludes = listOf("jdk.internal.*")
+    }
+}
+
 true // Needed to make the Suppress annotation work for the plugins block
