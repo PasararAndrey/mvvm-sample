@@ -8,6 +8,7 @@ kotlin = "1.9.20"
 #noinspection GradleDependency
 core-ktx = "1.12.0"
 junit = "4.13.2"
+androidx-test = "1.5.0"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 leakcanaryAndroid = "2.13"
@@ -39,6 +40,7 @@ google-services = "4.4.1"
 
 firebase-bom = "33.0.0"
 firebase-crashlytics = "2.9.9"
+truth = "1.4.2"
 uiTestAndroid = "1.6.7"
 
 
@@ -53,6 +55,7 @@ lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtim
 
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -87,7 +90,13 @@ detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", 
 leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidx-test" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidx-test" }
+androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidx-test" }
+androidx-test-ext-truth = { group = "androidx.test.ext", name = "truth", version.ref = "androidx-test" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidx-test-ext-junit" }
+
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 
 paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }

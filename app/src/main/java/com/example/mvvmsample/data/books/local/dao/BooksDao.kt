@@ -7,7 +7,7 @@ import com.example.mvvmsample.data.books.local.entity.BookEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface BookDao {
+interface BooksDao {
     @Upsert
     suspend fun upsert(book: BookEntity)
 

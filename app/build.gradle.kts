@@ -151,12 +151,17 @@ dependencies {
     kspAndroidTest(libs.dagger.hilt.android.compiler)
     //endregion
     //region Instrumented Tests
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.ext.truth)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     androidTestImplementation(libs.navigation.testing)
     androidTestImplementation(libs.dagger.hilt.android.testing)
+    androidTestImplementation(libs.truth)
     //endregion
     //region Debug
     debugImplementation(libs.ui.tooling)
@@ -171,6 +176,8 @@ val exclusions = listOf(
     "**/BuildConfig.*",
     "**/Manifest*.*",
     "**/*Test*.*",
+    "**.*dagger*.*",
+    "**.*hilt*.*",
 )
 
 tasks.withType(Test::class) {
