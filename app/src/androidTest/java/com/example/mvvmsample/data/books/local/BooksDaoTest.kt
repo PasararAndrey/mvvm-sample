@@ -2,23 +2,29 @@ package com.example.mvvmsample.data.books.local
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.mvvmsample.data.books.local.dao.BooksDao
 import com.example.mvvmsample.data.books.local.entity.BookEntity
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import java.io.IOException
+import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
 @SmallTest
 class BooksDaoTest {
-    private lateinit var database: BooksDatabase
+    @get:Rule(order = 0)
+    val hiltRule = HiltAndroidRule(this)
+
+    @Inject
+    lateinit var database: BooksDatabase
     private lateinit var dao: BooksDao
 
     private val bookId = 100
