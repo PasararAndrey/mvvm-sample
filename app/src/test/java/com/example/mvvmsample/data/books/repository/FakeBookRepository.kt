@@ -5,6 +5,7 @@ import com.example.mvvmsample.data.books.local.entity.BookPreviewEntity
 import com.example.mvvmsample.model.BookModel
 import com.example.mvvmsample.utils.RequestResult
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flow
 
 class FakeBookRepository : BookRepository {
@@ -16,6 +17,10 @@ class FakeBookRepository : BookRepository {
     private var returnedRequestResult: RequestResult<Any> = RequestResult.Success("")
 
     val thrownException = Exception("Predicted test error occurred")
+
+    private val getBookByIdFlow = MutableSharedFlow<RequestResult<BookModel>>()
+
+    suspend fun emitBookByIdState(requestResult: RequestResult<BookModel>) = getBookByIdFlow.emit(requestResult)
 
     fun setBookModelRequestResult(requestResult: RequestResult<Any>) {
         returnedRequestResult = requestResult
@@ -39,20 +44,13 @@ class FakeBookRepository : BookRepository {
             )
         }
 
-    override fun getBookById(id: Long): Flow<RequestResult<BookModel>> =
-        flow {
-            emit(
-                when (returnedRequestResult) {
-                    is RequestResult.Success -> RequestResult.Success(books[id.toInt()])
-                    is RequestResult.InProgress -> RequestResult.InProgress()
-                    is RequestResult.Error -> RequestResult.Error(error = thrownException)
-                },
-            )
-        }
+    override fun getBookById(id: Long): Flow<RequestResult<BookModel>> = getBookByIdFlow
 
     override suspend fun updateFavorite(id: Long): BookModel {
+        val newBook = BookModel(id = id.toInt(), isFavorite = true)
         _books[id.toInt()] = BookModel(id = id.toInt(), isFavorite = true)
-        return _books[id.toInt()]
+        emitBookByIdState(RequestResult.Success(newBook))
+        return newBook
     }
 
     override fun getFavoriteBooks(): Flow<RequestResult<List<BookModel>>> =

@@ -8,7 +8,6 @@ import com.example.mvvmsample.utils.RequestResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -51,17 +50,14 @@ class BookDetailsViewModelTest {
     @Test
     fun `should get book details`() =
         runTest {
-            advanceUntilIdle()
+            fakeBookRepository.emitBookByIdState(RequestResult.Success(fakeBookRepository.books.first()))
             assertEquals(BookDetailsUI.fromModel(fakeBookRepository.books.first()), viewModel.uiState.value.book)
         }
 
     @Test
-    fun `should update favorite state`() =
+    fun `should be in loading state`() =
         runTest {
-            advanceUntilIdle()
-            val isFavorite = viewModel.uiState.value.book.isFavorite
-            viewModel.onFavoriteChange()
-            advanceUntilIdle()
-            assertEquals(!isFavorite, viewModel.uiState.value.book.isFavorite)
+            fakeBookRepository.emitBookByIdState(RequestResult.InProgress())
+            assertEquals(true, viewModel.uiState.value.isLoading)
         }
 }

@@ -2,9 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="BooksDaoTest">
-        <State />
-      </entry>
       <entry key="MVVM Sample.MVVM_Sample.app">
         <State />
       </entry>
@@ -23,12 +20,6 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-04-17T10:10:30.515180200Z" />
         </State>
-      </entry>
-      <entry key="shouldAddBookToFavorites()">
-        <State />
-      </entry>
-      <entry key="shouldInsertBook()">
-        <State />
       </entry>
     </value>
   </component>
