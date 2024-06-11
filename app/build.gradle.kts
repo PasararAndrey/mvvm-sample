@@ -13,6 +13,10 @@ plugins {
     jacoco
 }
 
+jacoco {
+    toolVersion = "0.8.13"
+}
+
 android {
     namespace = "com.example.mvvmsample"
     compileSdk = 34
@@ -101,6 +105,10 @@ android {
             excludes += "/DebugProbesKt.bin"
         }
     }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -148,6 +156,8 @@ dependencies {
     //region Local Tests
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
+    testImplementation(libs.kotlinx.coroutines.test)
+
     kspAndroidTest(libs.dagger.hilt.android.compiler)
     //endregion
     //region Instrumented Tests
@@ -178,6 +188,7 @@ val exclusions = listOf(
     "**/*Test*.*",
     "**.*dagger*.*",
     "**.*hilt*.*",
+    "**/*$*lambda*$*.*",
 )
 
 tasks.withType(Test::class) {
