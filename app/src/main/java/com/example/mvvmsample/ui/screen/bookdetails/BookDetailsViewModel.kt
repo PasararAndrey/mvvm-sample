@@ -1,6 +1,5 @@
 package com.example.mvvmsample.ui.screen.bookdetails
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,9 +28,7 @@ class BookDetailsViewModel @Inject constructor(
     val uiState: StateFlow<BookDetailsUIState> = _uiState
 
     init {
-        Log.d(TAG, args.bookId)
         bookRepository.getBookById(args.bookId.toLong()).onEach { result ->
-            Log.d(TAG, result.toString())
             _uiState.update {
                 toState(result)
             }
@@ -54,7 +51,6 @@ class BookDetailsViewModel @Inject constructor(
             }
 
             is RequestResult.Error -> {
-                Log.e(TAG, result.error.stackTraceToString())
                 BookDetailsUIState()
             }
         }
