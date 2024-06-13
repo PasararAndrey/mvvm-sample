@@ -102,9 +102,9 @@ android {
         }
     }
 
-//    testOptions {
-//        unitTests.isReturnDefaultValues = true
-//    }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -153,6 +153,7 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.paging.testing)
 
     kspAndroidTest(libs.dagger.hilt.android.compiler)
     //endregion

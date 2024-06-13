@@ -35,7 +35,7 @@ kotlin-serialization-json = "1.6.3"
 #noinspection GradleDependency
 ksp = "1.9.20-1.0.14"
 
-paging = "3.2.1"
+paging = "3.3.0"
 coil = "2.6.0"
 google-services = "4.4.1"
 
@@ -103,6 +103,7 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 
 paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "paging" }
+paging-testing = { group = "androidx.paging", name = "paging-testing", version.ref = "paging" }
 
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
