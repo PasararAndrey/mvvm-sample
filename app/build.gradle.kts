@@ -9,14 +9,18 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+//    jacoco
 }
+
+// jacoco {
+//    toolVersion = "0.8.13"
+// }
 
 android {
     namespace = "com.example.mvvmsample"
     compileSdk = 34
 
 //    project.tasks.preBuild.dependsOn("detekt").dependsOn("ktlintCheck")
-
     defaultConfig {
         applicationId = "com.example.mvvmsample"
         minSdk = 24
@@ -97,13 +101,18 @@ android {
             excludes += "/DebugProbesKt.bin"
         }
     }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
+    //region Core
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
-
-    // Compose
+    //endregion
+    //region Compose
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
@@ -113,18 +122,18 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.navigation.compose)
-
-    // DI
+    //endregion
+    //region DI
     implementation(libs.dagger.hilt.android)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.dagger.hilt.compiler)
-
-    // Room
+    //endregion
+    //region Room
     implementation(libs.room.ktx)
     implementation(libs.room.paging)
     ksp(libs.room.compiler)
-
-    // Network
+    //endregion
+    //region Network
     implementation(libs.retrofit)
     implementation(libs.logging.interceptor)
     implementation(libs.kotlin.serialization)
@@ -134,23 +143,99 @@ dependencies {
     implementation(libs.paging.runtime.ktx)
     implementation(libs.coil.compose)
     implementation(libs.gson)
-
-    // Firebase
+    //endregion
+    //region Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
-
-    // Testing
+    //endregion
+    //region Local Tests
     testImplementation(libs.junit)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.paging.testing)
+
+    kspAndroidTest(libs.dagger.hilt.android.compiler)
+    //endregion
+    //region Instrumented Tests
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.ext.truth)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     androidTestImplementation(libs.navigation.testing)
     androidTestImplementation(libs.dagger.hilt.android.testing)
-    kspAndroidTest(libs.dagger.hilt.android.compiler)
-
+    androidTestImplementation(libs.truth)
+    //endregion
+    //region Debug
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     debugImplementation(libs.leakcanary.android)
+    //endregion
 }
+
+// val exclusions = listOf(
+//    "**/R.class",
+//    "**/R\$*.class",
+//    "**/BuildConfig.*",
+//    "**/Manifest*.*",
+//    "**/*Test*.*",
+//    "**.*dagger*.*",
+//    "**.*hilt*.*",
+//    "**/*$*lambda*$*.*",
+// )
+//
+// tasks.withType(Test::class) {
+//    configure<JacocoTaskExtension> {
+//        isIncludeNoLocationClasses = true
+//        excludes = listOf("jdk.internal.*")
+//    }
+// }
+//
+// android {
+//    applicationVariants.all(
+//        closureOf<com.android.build.gradle.internal.api.BaseVariantImpl> {
+//            val variant = this@closureOf.name.replaceFirstChar {
+//                if (it.isLowerCase()) {
+//                    it.titlecase(
+//                        Locale.getDefault(),
+//                    )
+//                } else {
+//                    it.toString()
+//                }
+//            }
+//
+//            val unitTests = "test${variant}UnitTest"
+//            val androidTests = "connected${variant}AndroidTest"
+//
+//            tasks.register<JacocoReport>("jacoco${variant}CodeCoverage") {
+//                dependsOn(listOf(unitTests, androidTests))
+//                group = "Reporting"
+//                description = "Execute ui and unit tests, generate and combine Jacoco coverage report"
+//                reports {
+//                    xml.required.set(true)
+//                    html.required.set(true)
+//                }
+//                sourceDirectories.setFrom(layout.projectDirectory.dir("src/main"))
+//                classDirectories.setFrom(
+//                    files(
+//                        fileTree(layout.buildDirectory.dir("intermediates/javac/")) {
+//                            exclude(exclusions)
+//                        },
+//                        fileTree(layout.buildDirectory.dir("tmp/kotlin-classes/")) {
+//                            exclude(exclusions)
+//                        },
+//                    ),
+//                )
+//                executionData.setFrom(
+//                    files(
+//                        fileTree(layout.buildDirectory) { include(listOf("**/*.exec", "**/*.ec")) },
+//                    ),
+//                )
+//            }
+//        },
+//    )
+// }

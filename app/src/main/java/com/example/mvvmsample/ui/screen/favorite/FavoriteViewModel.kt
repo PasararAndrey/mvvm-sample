@@ -1,15 +1,14 @@
 package com.example.mvvmsample.ui.screen.favorite
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mvvmsample.data.books.repository.BookRepository
+import com.example.mvvmsample.di.dispatchers.IoDispatcher
 import com.example.mvvmsample.model.BookModel
-import com.example.mvvmsample.ui.screen.bookdetails.BookDetailsViewModel
 import com.example.mvvmsample.ui.screen.favorite.model.FavoriteUI
 import com.example.mvvmsample.utils.RequestResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
     private val bookRepository: BookRepository,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<FavoriteUIState> = MutableStateFlow(FavoriteUIState())
     val uiState: StateFlow<FavoriteUIState> = _uiState.asStateFlow()
@@ -31,7 +31,7 @@ class FavoriteViewModel @Inject constructor(
 
     private fun getFavoriteBooks() {
         viewModelScope.launch {
-            bookRepository.getFavoriteBooks().flowOn(Dispatchers.IO).collect { requestResult ->
+            bookRepository.getFavoriteBooks().flowOn(dispatcher).collect { requestResult ->
                 _uiState.update {
                     toState(requestResult)
                 }
@@ -51,7 +51,6 @@ class FavoriteViewModel @Inject constructor(
             }
 
             is RequestResult.Error -> {
-                Log.e(BookDetailsViewModel.TAG, result.error.stackTraceToString())
                 FavoriteUIState()
             }
         }
