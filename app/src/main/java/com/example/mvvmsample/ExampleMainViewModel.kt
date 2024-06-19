@@ -12,16 +12,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExampleMainViewModel @Inject constructor() : ViewModel() {
-    private val _isSplashShouldBeShown = MutableStateFlow(false)
-    val isSplashShouldBeShown: StateFlow<Boolean> = _isSplashShouldBeShown.asStateFlow()
+    private val _isSplashShouldBeRemoved = MutableStateFlow(false)
+    val isSplashShouldBeRemoved: StateFlow<Boolean> = _isSplashShouldBeRemoved.asStateFlow()
 
     // ONLY FOR DEMONSTRATION
     init {
         viewModelScope.launch {
-
             @Suppress("MagicNumber")
-            delay(4000)
-            _isSplashShouldBeShown.emit(true)
+            delay(3000)
+            _isSplashShouldBeRemoved.emit(true)
         }
     }
 }
