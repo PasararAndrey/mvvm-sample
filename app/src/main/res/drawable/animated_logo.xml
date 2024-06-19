@@ -2,6 +2,9 @@
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:drawable="@drawable/logo">
     <target
-        android:name="background"
+        android:name="heartLeft"
         android:animation="@animator/logo_animator" />
+    <target
+        android:animation="@animator/logo_animator"
+        android:name="heartRight"/>
 </animated-vector>
