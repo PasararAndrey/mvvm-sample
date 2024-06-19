@@ -9,32 +9,40 @@
         android:name="heart"
         android:pivotX="12"
         android:pivotY="12"
-        android:scaleX="0.5"
-        android:scaleY="0.5">
+        android:scaleX="0.3"
+        android:scaleY="0.3">
         <path
             android:name="heartLeft"
-            android:fillColor="@android:color/transparent"
-            android:pathData="M 12.23 20
+            android:fillAlpha="0"
+            android:fillColor="@android:color/holo_red_light"
+            android:pathData="M 12 20
                               l -1 -0.8
                               C 6 15 3 11 3 7.5
                               C 3 5 5 3 7 3
-                              C 9 3 9.2 4 12.23 6"
+                              C 9 3 9.2 4 12 6"
             android:strokeWidth="1"
-            android:strokeColor="#FF0000"
+            android:strokeColor="@android:color/holo_red_dark"
+            android:strokeLineCap="round"
             android:trimPathStart="0.0"
             android:trimPathEnd="0.0"
             tools:trimPathEnd="1" />
         <path
             android:name="heartRight"
-            android:pathData="M 11.68 20
+            android:fillAlpha="0"
+            android:fillColor="@android:color/holo_red_light"
+            android:pathData="M 12 20
                               l 1 -0.8
                               C 18 15 21 11 21 7.5
                               C 21 5 19 3 17 3
-                              C 15 3 14.8 4 11.68 6"
+                              C 15 3 14.8 4 12 6"
             android:strokeWidth="1"
-            android:strokeColor="#FF0000"
+
+            android:strokeColor="@android:color/holo_red_dark"
+            android:strokeLineCap="round"
             android:trimPathStart="0.0"
             android:trimPathEnd="0.0"
             tools:trimPathEnd="1" />
     </group>
+
+
 </vector>

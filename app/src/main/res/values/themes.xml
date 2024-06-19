@@ -5,5 +5,6 @@
 
     <style name="Theme.MvvmExample.Starting" parent="Theme.SplashScreen">
         <item name="postSplashScreenTheme">@style/Theme.MvvmExample</item>
+
     </style>
 </resources>

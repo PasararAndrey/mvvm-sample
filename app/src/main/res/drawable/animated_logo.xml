@@ -5,6 +5,10 @@
         android:name="heartLeft"
         android:animation="@animator/logo_animator" />
     <target
-        android:animation="@animator/logo_animator"
-        android:name="heartRight"/>
+        android:name="heartRight"
+        android:animation="@animator/logo_animator" />
+
+    <target
+        android:name="heart"
+        android:animation="@animator/logo_pulse" />
 </animated-vector>
