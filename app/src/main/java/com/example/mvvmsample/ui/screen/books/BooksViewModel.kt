@@ -26,5 +26,6 @@ class BooksViewModel @Inject constructor(
             }.cachedIn(viewModelScope),
         ),
     )
+
     val uiState: StateFlow<BooksUIState> = _uiState.asStateFlow()
 }
