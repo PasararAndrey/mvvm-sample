@@ -241,7 +241,7 @@ development.
   dependencies during testing. This makes it easier to write unit tests and integration tests for Android apps that use
   dependency injection.
 
-## 4. Other Tools
+## 4. Linters
 
 In addition to the libraries mentioned above, the project also utilizes the following tools:
 
@@ -252,7 +252,21 @@ In addition to the libraries mentioned above, the project also utilizes the foll
 
 These tools ensure code quality, adherence to coding standards, and overall maintainability of the project.
 
-## 5. App Preview
+## 5. [Github Actions](https://docs.github.com/en/actions)
+
+GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline. You can create workflows that build and test every pull request to your repository, or deploy merged pull requests to production.
+
+The project implements the following Github Actions:
+
+- [**Ktlint**](.github/workflows/ktlint-check.yml): checks the code formatting on each push.
+  
+- [**Detekt**](.github/workflows/detekt-check.yml): static code analysis at every push.
+  
+- [**Unit tests**](.github/workflows/unit-tests.yml): runs unit tests on every pull request or push to the master branch.
+  
+- [**Instrumented tests**](.github/workflows/instrumented-tests.yml): Runs instrumented tests on every pull request or push to the master branch.
+
+## 6. App Preview
 
 When user enters the app he able to see splash screen.
 
