@@ -264,12 +264,17 @@ The bottom navigation consists of three tabs.
 
 ![image](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/54e87355-e49e-4ef1-95c6-4daa29eb4cf8)
 
-- **Settings**: tab name in the middle of the screen.
+- **Favorite**: List of user's favorite books.
 
-![image](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/322b5e4d-5957-4cd7-ba83-33e6107a8d49)
+![favorite_list_1](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/17528216-2bed-40c2-8a20-0714ad471505)
 
-- **Settings**: tab name in the middle of the screen. An example of how to use the viewmodel. A randomly generated number in the viewmodel is delivered to the screen using StateFlow.
+- **Books**: list of books that loaded from remote API or from local database.
 
-![image](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/827b6ee1-b19e-458e-99b8-8a8255e86b07)
+![book_list_1](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/a99f6144-d9ac-453c-b093-769bc15813cc) ![book_list_2](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/939eec0d-9545-4729-8fd5-5c19595ff668)
 
+Also there are others screens:
+
+- **Book Details**: represents details of the book.
+
+![book_details](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/ee9c88d9-a78a-4630-ad71-28ca3ff2a2a1)
 
