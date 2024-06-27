@@ -254,6 +254,10 @@ These tools ensure code quality, adherence to coding standards, and overall main
 
 ## 5. App Preview
 
+When user enters the app he able to see splash screen.
+
+![splashscreen_preview](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/9e1b3c58-bb2b-48a5-a0a5-b4e04e54fc69)
+
 The bottom navigation consists of three tabs. 
 
 - **Home**: tab name in the middle of the screen.
