@@ -268,6 +268,17 @@ The project implements the following Github Actions:
 
 ## 6. App Preview
 
+Android adaptive icons adjust their shapes and colors according to the user's theme.
+
+Basic app icon:
+
+![image](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/e4b0bfed-e21d-4a21-baee-fcd1311eebea)
+
+Example of variations based on the system's theme:
+
+<img src="https://github.com/PasararAndrey/mvvm-sample/assets/56974924/14f89635-31d2-4824-a839-49eb722e1cf8" alt="icon example" height = "250"/>
+<img src="https://github.com/PasararAndrey/mvvm-sample/assets/56974924/841fe2aa-6a21-4cd1-b8eb-6b6e256c8fd5" alt="icon example" height = "250"/>
+
 When user enters the app he able to see splash screen.
 
 ![splashscreen_preview](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/9e1b3c58-bb2b-48a5-a0a5-b4e04e54fc69)
