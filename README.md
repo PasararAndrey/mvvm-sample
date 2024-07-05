@@ -1,238 +1,302 @@
-# Android MVVM Sample Project
+# Android mvvm sample project
 
-# Table Of Contents
+# Table of contents
 
--   [Android MVVM Sample Project](#android-mvvm-sample-project)
--   [Table Of Contents](#table-of-contents)
--   [What is this project?](#what-is-this-project)
--   [What is MVVM?](#what-is-mvvm)
-    -   [MVVM Architecture](#mvvm-architecture)
-    -   [Components of MVVM](#components-of-mvvm)
-    -   [Key Principles and Benefits of MVVM](#key-principles-and-benefits-of-mvvm)
-    -   [ViewModel (part of Android Architecture Components)](#viewmodel-part-of-android-architecture-components)
-        -   [Key Features:](#key-features)
-    -   [Kotlin Flow (part of Kotlin language)](#kotlin-flow-part-of-kotlin-language)
-        -   [Key Features:](#key-features-1)
-    -   [Compose (UI App Development Toolkit)](#compose-ui-app-development-toolkit)
-        -   [Key Features:](#key-features-2)
-        -   [Compatibility:](#compatibility)
-    -   [Retrofit 2 (Remote Data Source)](#retrofit-2-remote-data-source)
-        -   [Key Features:](#key-features-3)
-        -   [Integration with Android:](#integration-with-android)
-    -   [Room ((Local Data Source)](#room-local-data-source)
-        -   [Key Features:](#key-features-4)
-        -   [Integration with Android:](#integration-with-android-1)
-    -   [Hilt (Dependency Injection for Android)](#hilt-dependency-injection-for-android)
-        -   [Key Features:](#key-features-5)
--   [Linters](#linters)
--   [Github Actions](#github-actions)
--   [App preview](#app-preview)
+- [Android mvvm sample project](#android-mvvm-sample-project)
+- [Table of contents](#table-of-contents)
+- [What is this project?](#what-is-this-project)
+- [What is mvvm?](#what-is-mvvm)
+  - [Mvvm architecture](#mvvm-architecture)
+  - [Components of mvvm](#components-of-mvvm)
+  - [Key principles and benefits of mvvm](#key-principles-and-benefits-of-mvvm)
+- [Libraries used](#libraries-used)
+  - [Viewmodel (part of android architecture components)](#viewmodel-part-of-android-architecture-components)
+    - [Key features](#key-features)
+  - [Kotlin flow (part of kotlin language)](#kotlin-flow-part-of-kotlin-language)
+    - [Key features](#key-features-1)
+  - [Compose (ui app development toolkit)](#compose-ui-app-development-toolkit)
+    - [Key features](#key-features-2)
+    - [Compatibility](#compatibility)
+  - [Retrofit 2 (remote data source)](#retrofit-2-remote-data-source)
+    - [Key features](#key-features-3)
+    - [Integration with android](#integration-with-android)
+  - [Room ((local data source)](#room-local-data-source)
+    - [Key features](#key-features-4)
+    - [Integration with android:](#integration-with-android-1)
+  - [Hilt (dependency injection for android)](#hilt-dependency-injection-for-android)
+    - [Key features](#key-features-5)
+- [Testing](#testing)
+  - [Local (unit) testing](#local-unit-testing)
+  - [Instrumented testing](#instrumented-testing)
+- [Linters](#linters)
+- [Github actions](#github-actions)
+- [App preview](#app-preview)
 
 # What is this project?
 
-This project is a sample Android application built using the Model-View-ViewModel (MVVM) architectural pattern. It serves as a demonstration of how MVVM can be implemented in an Android app to achieve separation of concerns, maintainability, and testability. Also, the application features a bottom navigation with 3 tabs.
+This project is a sample android application built using the model-view-viewmodel (mvvm) architectural pattern.
+It serves as a demonstration of how mvvm can be implemented in an android app to achieve separation of concerns, maintainability, and testability.
+Also, the application features a bottom navigation with 3 tabs.
 
-# What is MVVM?
+# What is mvvm?
 
-## MVVM Architecture
+## Mvvm architecture
 
-MVVM, which stands for **Model-View-ViewModel**, is an architectural pattern widely used in software development, particularly in building user interfaces (UIs).
-It was specifically tailored for modern UI development.
+Mvvm, which stands for **model-view-viewmodel**, is an architectural pattern widely used in software development, particularly in building user interfaces (uis).
+It was specifically tailored for modern ui development.
 
-![image](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/235bb2c1-ac2f-4a37-a35b-c0e3461a379c)
+![image](https://github.com/pasararandrey/mvvm-sample/assets/56974924/235bb2c1-ac2f-4a37-a35b-c0e3461a379c)
 
-## Components of MVVM
+## Components of mvvm
 
 **Model**
 
-    - Represents the data and business logic of the application.
-    - It encapsulates the data, state, and behavior of the application's domain.
-    - Models can include data retrieval from databases, network requests, or any other data source.
+-   represents the data and business logic of the application.
+
+-   it encapsulates the data, state, and behavior of the application's domain.
+
+-   models can include data retrieval from databases, network requests, or any other data source.
 
 **View**
 
-    - Represents the UI components visible to the user.
-    - It displays the data to the user and captures user interactions.
-    - Views are passive components and should not contain any business logic.
+-   represents the ui components visible to the user.
 
-**ViewModel**
+-   it displays the data to the user and captures user interactions.
 
-    - Acts as an intermediary between the View and the Model.
-    - Exposes data from the Model to the View through observable data streams.
-    - Provides methods and commands for handling user interactions.
-    - ViewModel instances are lifecycle-aware, meaning they can survive configuration changes, such as screen rotations, without losing their data.
-    - ViewModel does not directly reference the View; instead, it exposes data using observable properties or LiveData, allowing the View to observe changes in the data and update itself accordingly.
+-   views are passive components and should not contain any business logic.
 
-## Key Principles and Benefits of MVVM
+**Viewmodel**
 
--   **Separation of Concerns**: MVVM separates the concerns of data presentation (View), data manipulation and logic (ViewModel), and data storage and retrieval (Model).
--   This separation makes the codebase easier to maintain, test, and understand.
+-   acts as an intermediary between the view and the model.
 
--   **Testability**: MVVM promotes testability by decoupling the UI logic from the View. Unit testing of ViewModel becomes straightforward as it does not rely on Android framework components directly.
+-   exposes data from the model to the view through observable data streams.
 
--   **Reusability**: ViewModel encapsulates the UI-related data and logic, making it easier to reuse across different views. This promotes code reusability and reduces duplication.
+-   provides methods and commands for handling user interactions.
 
--   **Maintainability**: With clear separation of concerns and modularization, MVVM makes it easier to maintain and extend the codebase over time. Changes in one layer typically do not require modifications in other layers, reducing the risk of unintended side effects.
+-   viewmodel instances are lifecycle-aware, meaning they can survive configuration changes, such as screen rotations, without losing their data.
 
--   **Support for Reactive Programming**: MVVM is well-suited for reactive programming paradigms, where changes in data trigger updates in the UI. Libraries like LiveData or RxJava can be used in ViewModel to observe changes in data and update the UI reactively.
+-   viewmodel does not directly reference the view; instead, it exposes data using observable properties or livedata, allowing the view to observe changes in the data and update itself accordingly.
 
-## [ViewModel (part of Android Architecture Components)](https://developer.android.com/topic/libraries/architecture/viewmodel)
+## Key principles and benefits of mvvm
 
-ViewModel plays a crucial role in implementing the MVVM architectural pattern in Android applications. It serves as a communication hub between the View (UI) and the underlying data sources or business logic (Model). The primary responsibilities of ViewModel include:
+-   **separation of concerns**: mvvm separates the concerns of data presentation (view), data manipulation and logic (viewmodel), and data storage and retrieval (model).
+    This separation makes the codebase easier to maintain, test, and understand.
 
-### Key Features:
+-   **testability**: mvvm promotes testability by decoupling the ui logic from the view. Unit testing of viewmodel becomes straightforward as it does not rely on android framework components directly.
 
--   **managing ui-related data**: viewmodel holds and manages the data that is relevant to the ui components. this data can be retrieved from repositories, databases, or network requests.
+-   **reusability**: viewmodel encapsulates the ui-related data and logic, making it easier to reuse across different views. This promotes code reusability and reduces duplication.
 
--   **Surviving configuration changes**: ViewModel instances are scoped to the lifecycle of the associated UI component (typically an activity or fragment) and survive configuration changes, such as screen rotations. This ensures that the UI data remains intact across configuration changes and prevents unnecessary data reloads.
+-   **maintainability**: with clear separation of concerns and modularization, mvvm makes it easier to maintain and extend the codebase over time.
+    Changes in one layer typically do not require modifications in other layers, reducing the risk of unintended side effects.
 
--   **Exposing data to the View**: ViewModel exposes the required data to the View layer through observable properties or LiveData objects. This allows the View to observe changes in the data and update itself accordingly without directly accessing the underlying data sources.
+-   **support for reactive programming**: mvvm is well-suited for reactive programming paradigms, where changes in data trigger updates in the ui.
+    Libraries like livedata or rxjava can be used in viewmodel to observe changes in data and update the ui reactively.
 
--   **Handling user interactions**: ViewModel contains methods and commands for handling user interactions, such as button clicks or form submissions. It encapsulates the UI logic, making it easier to test and maintain.
+# Libraries used
 
-## [Kotlin Flow (part of Kotlin language)](https://kotlinlang.org/docs/flow.html)
+## [Viewmodel (part of android architecture components)](https://developer.android.com/topic/libraries/architecture/viewmodel)
 
-In MVVM (Model-View-ViewModel) architecture, both Kotlin Flows and LiveData can be used to handle asynchronous data streams between the ViewModel and the View (UI) layer. However, the choice between them depends on various factors, including the specific requirements of the application and the development team's preferences. Let's explore why Kotlin Flows might be chosen over LiveData in certain scenarios
+Viewmodel plays a crucial role in implementing the mvvm architectural pattern in android applications.
+It serves as a communication hub between the view (ui) and the underlying data sources or business logic (model).
 
-### Key Features:
+### Key features
 
--   **Asynchronous Operations**: Kotlin Flows offer more flexibility in handling asynchronous operations compared to LiveData. While LiveData is inherently tied to the Android lifecycle and is designed for one-time data observations, Flows are designed to handle asynchronous data streams that emit multiple values over time. This makes Flows more suitable for handling long-running asynchronous tasks, such as network requests or database queries, in ViewModel classes.
+-   **managing ui-related data**: viewmodel holds and manages the data that is relevant to the ui components.
+    This data can be retrieved from repositories, databases, or network requests.
 
--   **Coroutines Integration**: Kotlin Flows seamlessly integrate with Kotlin Coroutines, allowing developers to leverage the power of coroutines for asynchronous programming. Coroutines provide a lightweight and efficient way to perform concurrent operations, making it easier to write asynchronous code in ViewModel classes using Flows. LiveData, on the other hand, does not have built-in support for coroutines and requires additional boilerplate code to work with coroutines.
+-   **surviving configuration changes**: viewmodel instances are scoped to the lifecycle of the associated ui component (typically an activity or fragment) and survive configuration changes, such as screen rotations.
+    This ensures that the ui data remains intact across configuration changes and prevents unnecessary data reloads.
 
--   **Back Pressure Handling**: Flows provide built-in support for back pressure handling, allowing developers to control the flow of data between producers and consumers. This is particularly useful in scenarios where data producers may produce data faster than consumers can consume it, preventing issues like memory leaks or crashes due to buffer overflow. LiveData, on the other hand, does not support back pressure handling out of the box.
+-   **exposing data to the view**: viewmodel exposes the required data to the view layer through observable properties or livedata objects.
+    This allows the view to observe changes in the data and update itself accordingly without directly accessing the underlying data sources.
 
--   **Error Handling**: Flows offer more advanced error handling capabilities compared to LiveData. Developers can use operators like `catch` and `onEach` to handle errors gracefully within the flow pipeline, making it easier to propagate errors from asynchronous operations to the UI layer for appropriate user feedback. While LiveData can also handle errors, it requires additional error handling logic in the observer callbacks, which can lead to more verbose code.
+-   **handling user interactions**: viewmodel contains methods and commands for handling user interactions, such as button clicks or form submissions.
+    It encapsulates the ui logic, making it easier to test and maintain.
 
--   **Seamless Transformation**: Flows provide a wide range of operators for transforming, filtering, and combining data streams, allowing developers to perform complex data manipulation operations directly within the flow pipeline. This promotes a more functional programming style and leads to cleaner and more concise code. LiveData, on the other hand, has limited transformation capabilities and often requires additional LiveData objects or MediatorLiveData for complex data transformations.
+## [Kotlin flow (part of kotlin language)](https://kotlinlang.org/docs/flow.html)
 
-## [Compose (UI App Development Toolkit)](https://developer.android.com/develop/ui/compose)
+In mvvm (model-view-viewmodel) architecture, both kotlin flows and livedata can be used to handle asynchronous data streams between the viewmodel and the view (ui) layer.
+However, the choice between them depends on various factors, including the specific requirements of the application and the development team's preferences.
+Let's explore why kotlin flows might be chosen over livedata in certain scenarios
 
-Compose is a modern UI toolkit for building native Android UIs. It's designed to make it easier and more intuitive to create user interfaces with Kotlin code. Compose follows a declarative programming model, where UI components aredescribed as functions that transform data into UI elements.
+### Key features
 
-### Key Features:
+-   **asynchronous operations**: kotlin flows offer more flexibility in handling asynchronous operations compared to livedata.
+    While livedata is inherently tied to the android lifecycle and is designed for one-time data observations, flows are designed to handle asynchronous data streams that emit multiple values over time.
+    This makes flows more suitable for handling long-running asynchronous tasks, such as network requests or database queries, in viewmodel classes.
 
--   **Declarative UI**: With Compose, you describe your UI using composable functions. These functions are lightweight and can be easily composed together to build complex UIs. This declarative approach makes UI code easier to read, write, and maintain.
+-   **coroutines integration**: kotlin flows seamlessly integrate with kotlin coroutines, allowing developers to leverage the power of coroutines for asynchronous programming.
+    Coroutines provide a lightweight and efficient way to perform concurrent operations, making it easier to write asynchronous code in viewmodel classes using flows.
+    Livedata, on the other hand, does not have built-in support for coroutines and requires additional boilerplate code to work with coroutines.
 
--   **Single Source of Truth**: Compose encourages the use of a single source of truth for UI state. This means that your UI components reflect the current state of your data, making it easier to keep your UI in sync with your app's underlying data model.
+-   **back pressure handling**: flows provide built-in support for back pressure handling, allowing developers to control the flow of data between producers and consumers.
+    This is particularly useful in scenarios where data producers may produce data faster than consumers can consume it, preventing issues like memory leaks or crashes due to buffer overflow.
+    Livedata, on the other hand, does not support back pressure handling out of the box.
 
--   **UI Testing**: Compose makes UI testing easier by providing a testable API for interacting with UI components. You can write UI tests using the same Kotlin code you use to build your UI, making it easier to write and maintain UI tests.
+-   **error handling**: flows offer more advanced error handling capabilities compared to livedata.
+    Developers can use operators like `catch` and `oneach` to handle errors gracefully within the flow pipeline, making it easier to propagate errors from asynchronous operations to the ui layer for appropriate user feedback.
+    While livedata can also handle errors, it requires additional error handling logic in the observer callbacks, which can lead to more verbose code.
 
--   **Jetpack Integration**: Compose is fully integrated with Jetpack libraries, such as ViewModel, LiveData, Room, and
-    Navigation. This allows you to seamlessly integrate Compose into your existing Jetpack-based app architecture.
+-   **seamless transformation**: flows provide a wide range of operators for transforming, filtering, and combining data streams, allowing developers to perform complex data manipulation operations directly within the flow pipeline.
+    This promotes a more functional programming style and leads to cleaner and more concise code.
+    Livedata, on the other hand, has limited transformation capabilities and often requires additional livedata objects or mediatorlivedata for complex data transformations.
 
--   **Material Design**: Compose provides built-in support for Material Design, making it easy to create modern and
-    visually appealing UIs that follow Google's design guidelines.
+## [Compose (ui app development toolkit)](https://developer.android.com/develop/ui/compose)
 
--   **Interactive Design Tools**: Compose offers interactive design tools that allow you to preview your UI in real-time
-    as you write code. This makes it easier to iterate on your UI designs and see the changes immediately.
+Compose is a modern ui toolkit for building native android uis.
+It's designed to make it easier and more intuitive to create user interfaces with kotlin code. compose follows a declarative programming model, where ui components aredescribed as functions that transform data into ui elements.
 
--   **Animations and Transitions**: Compose provides powerful animation and transition APIs that allow you to create
-    smooth and fluid user experiences. You can easily define animations and transitions to add polish to your UIs.
+### Key features
 
-### Compatibility:
+-   **declarative ui**: with compose, you describe your ui using composable functions.
+    These functions are lightweight and can be easily composed together to build complex uis.
+    This declarative approach makes ui code easier to read, write, and maintain.
 
-Compose is compatible with **Android API level 21 (Lollipop) and higher**, allowing you to use it in both new and
-existing Android projects.
+-   **single source of truth**: compose encourages the use of a single source of truth for ui state.
+    This means that your ui components reflect the current state of your data, making it easier to keep your ui in sync with your app's underlying data model.
 
-## [Retrofit 2 (Remote Data Source)](https://square.github.io/retrofit/)
+-   **ui testing**: compose makes ui testing easier by providing a testable api for interacting with ui components.
+    You can write ui tests using the same kotlin code you use to build your ui, making it easier to write and maintain ui tests.
 
-Retrofit is a popular type-safe HTTP client for Android applications. It simplifies network requests to RESTful APIs by providing a declarative API, type-safe HTTP methods, serialization/deserialization support, and asynchronous/synchronous request execution.
+-   **jetpack integration**: compose is fully integrated with jetpack libraries, such as viewmodel, livedata, room, and navigation.
+    This allows you to seamlessly integrate compose into your existing jetpack-based app architecture.
 
-### Key Features:
+-   **material design**: compose provides built-in support for material design, making it easy to create modern and visually appealing uis that follow google's design guidelines.
 
--   **Declarative API**: Define API endpoints and request parameters using annotations and interfaces.
+-   **interactive design tools**: compose offers interactive design tools that allow you to preview your ui in real-time as you write code.
+    This makes it easier to iterate on your ui designs and see the changes immediately.
 
--   **Type Safety**: Generates HTTP request implementations at compile-time, ensuring type safety and reducing runtime
-    errors.
+-   **animations and transitions**: compose provides powerful animation and transition apis that allow you to create smooth and fluid user experiences.
+    You can easily define animations and transitions to add polish to your uis.
 
--   **Serialization/Deserialization**: Seamlessly integrates with JSON serialization libraries like Gson or Moshi.
+### Compatibility
 
--   **Asynchronous and Synchronous Requests**: Supports both asynchronous and synchronous execution of network requests.
+Compose is compatible with **android api level 21 (lollipop) and higher**, allowing you to use it in both new and
+existing android projects.
 
--   **Error Handling**: Offers robust error handling mechanisms for handling HTTP errors and network timeouts.
+## [Retrofit 2 (remote data source)](https://square.github.io/retrofit/)
 
-### Integration with Android:
+Retrofit is a popular type-safe http client for android applications.
+It simplifies network requests to restful apis by providing a declarative api, type-safe http methods, serialization/deserialization support, and asynchronous/synchronous request execution.
 
-Retrofit integrates well with Android Architecture Components like LiveData and ViewModel, making it suitable for building reactive and lifecycle-aware apps. It also works seamlessly with dependency injection frameworks like Dagger or Koin.
+### Key features
 
-## [Room ((Local Data Source)](https://developer.android.com/training/data-storage/room/)
+-   **declarative api**: define api endpoints and request parameters using annotations and interfaces.
 
-Room is an Android Architecture Components library that provides an abstraction layer over SQLite, the native relational database engine for Android. It simplifies database interactions and reduces boilerplate code, making it easier to work with databases in Android apps.
+-   **type safety**: generates http request implementations at compile-time, ensuring type safety and reducing runtime errors.
 
-### Key Features:
+-   **serialization/deserialization**: seamlessly integrates with json serialization libraries like gson or moshi.
 
--   **Object-Relational Mapping (ORM)**: Room allows developers to define annotated data objects (entities) that represent
-    tables in the app's database. These entities encapsulate the schema of the database and map directly to rows in the
-    corresponding tables.
+-   **asynchronous and synchronous requests**: supports both asynchronous and synchronous execution of network requests.
 
--   **Compile-Time SQL Validation**: Room performs compile-time verification of SQL queries defined in DAO (Data Access
-    Object) interfaces. This ensures syntactical correctness and reduces the risk of runtime errors related to SQL syntax.
+-   **error handling**: offers robust error handling mechanisms for handling http errors and network timeouts.
 
--   **Built-in Support for LiveData/RxJava/Flow**: Room provides built-in support for LiveData and RxJava, allowing
-    developers to observe database changes reactively. This enables the UI to update automatically when the underlying
-    data changes without the need for manual refreshes.
+### Integration with android
 
--   **Database Migrations**: Room simplifies the process of migrating the database schema between different versions of
-    the app. It supports schema versioning and provides utilities for defining migration scripts to modify the database
-    schema without losing existing data.
+Retrofit integrates well with android architecture components like livedata and viewmodel, making it suitable for building reactive and lifecycle-aware apps.
+It also works seamlessly with dependency injection frameworks like dagger or koin.
 
--   **Thread Safety**: Room ensures thread safety by performing database operations on background threads by default. It
-    offers asynchronous query execution and allows developers to specify custom thread management strategies if needed.
+## [Room ((local data source)](https://developer.android.com/training/data-storage/room/)
 
-### Integration with Android:
+Room is an android architecture components library that provides an abstraction layer over sqlite, the native relational database engine for android.
+It simplifies database interactions and reduces boilerplate code, making it easier to work with databases in android apps.
 
-Room integrates seamlessly with other components of the Android ecosystem. It also works well with Kotlin Coroutines for
-asynchronous programming and dependency injection frameworks like Dagger or Koin for managing dependencies efficiently.
+### Key features
 
-## [Hilt (Dependency Injection for Android)](https://developer.android.com/training/dependency-injection/hilt-android)
+-   **object-relational mapping (orm)**: room allows developers to define annotated data objects (entities) that represent tables in the app's database.
+    These entities encapsulate the schema of the database and map directly to rows in the corresponding tables.
 
-Hilt is a dependency injection library for Android that is built on top of Dagger 2.
-It simplifies the implementation of dependency injection in Android apps by providing a set of predefined components and annotations tailored for Android development.
+-   **compile-time sql validation**: room performs compile-time verification of sql queries defined in dao (data access object) interfaces.
+    This ensures syntactical correctness and reduces the risk of runtime errors related to sql syntax.
 
-### Key Features:
+-   **built-in support for livedata/rxjava/flow**: room provides built-in support for livedata and rxjava, allowing developers to observe database changes reactively.
+    This enables the ui to update automatically when the underlying data changes without the need for manual refreshes.
 
--   **Integration with Android Components**: Hilt seamlessly integrates with Android framework components such as
-    activities, fragments, services, and ViewModel from the Android Architecture Components. This allows for easy
-    injection of dependencies into these components without manual configuration.
+-   **database migrations**: room simplifies the process of migrating the database schema between different versions of the app.
+    It supports schema versioning and provides utilities for defining migration scripts to modify the database schema without losing existing data.
 
--   **Simplified Setup**: Hilt reduces the amount of boilerplate code required for setting up dependency injection in
-    Android apps. Developers can annotate Android classes with Hilt annotations to indicate how dependencies should be
-    provided and injected.
+-   **thread safety**: room ensures thread safety by performing database operations on background threads by default.
+    It offers asynchronous query execution and allows developers to specify custom thread management strategies if needed.
 
--   **Scoping and Lifecycle Management**: Hilt offers built-in support for scoping and lifecycle management, ensuring that
-    dependencies are created and destroyed appropriately based on the lifecycle of Android components. This helps prevent
-    memory leaks and improves resource management.
+### Integration with android:
 
--   **Integration with ViewModel**: Hilt provides special support for injecting dependencies into ViewModel instances. It
-    offers ViewModel component scoped to each ViewModel, ensuring that ViewModel instances receive their dependencies
-    correctly scoped to their lifecycle.
+Room integrates seamlessly with other components of the android ecosystem.
+It also works well with kotlin coroutines for asynchronous programming and dependency injection frameworks like dagger or koin for managing dependencies efficiently.
 
--   **Testing Support**: Hilt simplifies the testing of Android components by providing mechanisms for injecting mock
-    dependencies during testing. This makes it easier to write unit tests and integration tests for Android apps that use
-    dependency injection.
+## [Hilt (dependency injection for android)](https://developer.android.com/training/dependency-injection/hilt-android)
+
+Hilt is a dependency injection library for android that is built on top of dagger 2.
+It simplifies the implementation of dependency injection in android apps by providing a set of predefined components and annotations tailored for android development.
+
+### Key features
+
+-   **integration with android components**: hilt seamlessly integrates with android framework components such as activities, fragments, services, and viewmodel from the android architecture components.
+    This allows for easy injection of dependencies into these components without manual configuration.
+
+-   **simplified setup**: hilt reduces the amount of boilerplate code required for setting up dependency injection in android apps.
+    Developers can annotate android classes with hilt annotations to indicate how dependencies should be provided and injected.
+
+-   **scoping and lifecycle management**: hilt offers built-in support for scoping and lifecycle management, ensuring that dependencies are created and destroyed appropriately based on the lifecycle of android components.
+    This helps prevent memory leaks and improves resource management.
+
+-   **integration with viewmodel**: hilt provides special support for injecting dependencies into viewmodel instances.
+    It offers viewmodel component scoped to each viewmodel, ensuring that viewmodel instances receive their dependencies correctly scoped to their lifecycle.
+
+-   **testing support**: hilt simplifies the testing of android components by providing mechanisms for injecting mock dependencies during testing.
+    This makes it easier to write unit tests and integration tests for android apps that use dependency injection.
+
+# [Testing](https://developer.android.com/training/testing/fundamentals)
+
+Testing is crucial in android development as it helps ensure the reliability and functionality of the app across various devices and scenarios.
+By implementing thorough testing practices, bugs can be caught and fixed early, leading to a more stable and user-friendly application.
+It also helps maintain a high level of code quality and ensure that new features or changes do not break existing functionality.
+
+## [Local (unit) testing](https://developer.android.com/training/testing/local-tests)
+
+Local testing, or unit testing, focuses on testing individual components of the application in isolation, typically without the need for a physical device or emulator.
+These tests run on the jvm and are usually faster than instrumented tests, making them ideal for testing business logic.
+In this project, a [FakeRepository](/app/src/test/java/com/example/mvvmsample/data/books/repository/FakeBookRepository.kt) is used to mock network requests, ensuring that tests are not dependent on network availability and are faster to execute.
+[The viewmodels of several screens](/app/src/test/java/com/example/mvvmsample/ui/screen/) have been thoroughly tested, verifying that they handle data and state changes correctly.
+
+## [Instrumented testing](https://developer.android.com/training/testing/instrumented-tests)
+
+Instrumented testing involves running tests on an actual device or emulator, providing a more realistic environment for testing the app’s behavior, including interactions with the android framework and system components.
+These tests are essential for verifying the correct functioning of the app’s ui and other integration points.
+
+In this project, [Hilt](https://developer.android.com/training/dependency-injection/hilt-testing) is used for dependency injection to simplify the process of swapping out implementations during tests.
+Specifically, implementations for [room](/app/src/androidTest/java/com/example/mvvmsample/di/TestDatabaseModule.kt), [service](/app/src/androidTest/java/com/example/mvvmsample/di/TestNetworkModule.kt), and [pager](/app/src/androidTest/java/com/example/mvvmsample/di/TestPagerModule.kt) are replaced.
+This allows the app to be tested in a controlled environment without relying on external services or databases.
+Thorough instrumented tests have been conducted on the screens for [books](/app/src/androidTest/java/com/example/mvvmsample/screen/books/BooksScreenTest.kt), [booksdetails](/app/src/androidTest/java/com/example/mvvmsample/screen/bookdetails/BookDetailsScreenTest.kt), and [favorite](/app/src/androidTest/java/com/example/mvvmsample/screen/favorite/FavoriteScreenTest.kt).
+Additionally, an example of integration testing for the books graph is included, ensuring that complex interactions and navigation flows work as expected.
+
+Furthermore, the implementation of BooksDao has been separately tested to ensure data is correctly handled and stored.
+To avoid making actual network requests during tests, a [FakeBooksService](/app/src/androidTest/java/com/example/mvvmsample/fake/FakeBooksService.kt) is used, which simulates network responses, ensuring tests are reliable and do not fail due to network issues.
 
 # Linters
 
 In addition to the libraries mentioned above, the project also utilizes the following tools:
 
--   [**ktlint**](https://github.com/pinterest/ktlint) : ktlint is a Kotlin linter that checks Kotlin code for coding
-    standards and style violations. It helps maintain consistent code formatting across the project.
--   [**detekt**](https://github.com/detekt/detekt): detekt is a static code analysis tool for Kotlin that detects issues
-    related to code complexity, style, potential bugs, and anti-patterns.
+-   [**ktlint**](https://github.com/pinterest/ktlint) : ktlint is a kotlin linter that checks kotlin code for coding standards and style violations.
+    It helps maintain consistent code formatting across the project.
+
+-   [**detekt**](https://github.com/detekt/detekt): detekt is a static code analysis tool for kotlin that detects issues related to code complexity, style, potential bugs, and anti-patterns.
 
 These tools ensure code quality, adherence to coding standards, and overall maintainability of the project.
 
-# [Github Actions](https://docs.github.com/en/actions)
+# [Github actions](https://docs.github.com/en/actions)
 
-GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline. You can create workflows that build and test every pull request to your repository, or deploy merged pull requests to production.
+Github actions is a continuous integration and continuous delivery (ci/cd) platform that allows you to automate your build, test, and deployment pipeline.
+You can create workflows that build and test every pull request to your repository, or deploy merged pull requests to production.
 
-The project implements the following Github Actions:
+The project implements the following github actions:
 
--   [**Ktlint**](.github/workflows/ktlint-check.yml): checks the code formatting on each push.
--   [**Detekt**](.github/workflows/detekt-check.yml): static code analysis at every push.
--   [**Unit tests**](.github/workflows/unit-tests.yml): runs unit tests on every pull request or push to the master branch.
--   [**Instrumented tests**](.github/workflows/instrumented-tests.yml): Runs instrumented tests on every pull request or push to the master branch.
+-   [**ktlint**](.github/workflows/ktlint-check.yml): checks the code formatting on each push.
+
+-   [**detekt**](.github/workflows/detekt-check.yml): static code analysis at every push.
+
+-   [**unit tests**](.github/workflows/unit-tests.yml): runs unit tests on every pull request or push to the master branch.
+
+-   [**instrumented tests**](.github/workflows/instrumented-tests.yml): runs instrumented tests on every pull request or push to the master branch.
 
 # App preview
 
@@ -240,33 +304,33 @@ Android adaptive icons adjust their shapes and colors according to the user's th
 
 Basic app icon:
 
-![image](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/e4b0bfed-e21d-4a21-baee-fcd1311eebea)
+![image](https://github.com/pasararandrey/mvvm-sample/assets/56974924/e4b0bfed-e21d-4a21-baee-fcd1311eebea)
 
 Example of variations based on the system's theme:
 
-<img src="https://github.com/PasararAndrey/mvvm-sample/assets/56974924/14f89635-31d2-4824-a839-49eb722e1cf8" alt="icon example" height = "250"/>
-<img src="https://github.com/PasararAndrey/mvvm-sample/assets/56974924/841fe2aa-6a21-4cd1-b8eb-6b6e256c8fd5" alt="icon example" height = "250"/>
+<img src="https://github.com/pasararandrey/mvvm-sample/assets/56974924/14f89635-31d2-4824-a839-49eb722e1cf8" alt="icon example" height = "250"/>
+<img src="https://github.com/pasararandrey/mvvm-sample/assets/56974924/841fe2aa-6a21-4cd1-b8eb-6b6e256c8fd5" alt="icon example" height = "250"/>
 
 When user enters the app he able to see splash screen.
 
-![splashscreen_preview](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/9e1b3c58-bb2b-48a5-a0a5-b4e04e54fc69)
+![splashscreen_preview](https://github.com/pasararandrey/mvvm-sample/assets/56974924/9e1b3c58-bb2b-48a5-a0a5-b4e04e54fc69)
 
 The bottom navigation consists of three tabs.
 
--   **Home**: tab name in the middle of the screen.
+-   **home**: tab name in the middle of the screen.
 
-![image](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/54e87355-e49e-4ef1-95c6-4daa29eb4cf8)
+![image](https://github.com/pasararandrey/mvvm-sample/assets/56974924/54e87355-e49e-4ef1-95c6-4daa29eb4cf8)
 
--   **Favorite**: List of user's favorite books.
+-   **favorite**: list of user's favorite books.
 
-![favorite_list_1](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/17528216-2bed-40c2-8a20-0714ad471505)
+![favorite_list_1](https://github.com/pasararandrey/mvvm-sample/assets/56974924/17528216-2bed-40c2-8a20-0714ad471505)
 
--   **Books**: list of books that loaded from remote API or from local database.
+-   **books**: list of books that loaded from remote api or from local database.
 
-![book_list_1](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/a99f6144-d9ac-453c-b093-769bc15813cc) ![book_list_2](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/939eec0d-9545-4729-8fd5-5c19595ff668)
+![book_list_1](https://github.com/pasararandrey/mvvm-sample/assets/56974924/a99f6144-d9ac-453c-b093-769bc15813cc) ![book_list_2](https://github.com/pasararandrey/mvvm-sample/assets/56974924/939eec0d-9545-4729-8fd5-5c19595ff668)
 
 Also there are others screens:
 
--   **Book Details**: represents details of the book.
+-   **book details**: represents details of the book.
 
-![book_details](https://github.com/PasararAndrey/mvvm-sample/assets/56974924/ee9c88d9-a78a-4630-ad71-28ca3ff2a2a1)
+![book_details](https://github.com/pasararandrey/mvvm-sample/assets/56974924/ee9c88d9-a78a-4630-ad71-28ca3ff2a2a1)
