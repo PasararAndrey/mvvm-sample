@@ -255,8 +255,8 @@ It also helps maintain a high level of code quality and ensure that new features
 
 Local testing, or unit testing, focuses on testing individual components of the application in isolation, typically without the need for a physical device or emulator.
 These tests run on the jvm and are usually faster than instrumented tests, making them ideal for testing business logic.
-In this project, a [FakeRepository](/app/src/test/java/com/example/mvvmsample/data/books/repository/FakeBookRepository.kt) is used to mock network requests, ensuring that tests are not dependent on network availability and are faster to execute.
-[The viewmodels of several screens](/app/src/test/java/com/example/mvvmsample/ui/screen/) have been thoroughly tested, verifying that they handle data and state changes correctly.
+In this project, a [FakeRepository](/app/src/test/java/com/example/findyourbook/data/books/repository/FakeBookRepository.kt) is used to mock network requests, ensuring that tests are not dependent on network availability and are faster to execute.
+[The viewmodels of several screens](/app/src/test/java/com/example/findyourbook/ui/screen/) have been thoroughly tested, verifying that they handle data and state changes correctly.
 
 ## [Instrumented testing](https://developer.android.com/training/testing/instrumented-tests)
 
@@ -264,13 +264,13 @@ Instrumented testing involves running tests on an actual device or emulator, pro
 These tests are essential for verifying the correct functioning of the app’s ui and other integration points.
 
 In this project, [Hilt](https://developer.android.com/training/dependency-injection/hilt-testing) is used for dependency injection to simplify the process of swapping out implementations during tests.
-Specifically, implementations for [room](/app/src/androidTest/java/com/example/mvvmsample/di/TestDatabaseModule.kt), [service](/app/src/androidTest/java/com/example/mvvmsample/di/TestNetworkModule.kt), and [pager](/app/src/androidTest/java/com/example/mvvmsample/di/TestPagerModule.kt) are replaced.
+Specifically, implementations for [room](/app/src/androidTest/java/com/example/findyourbook/di/TestDatabaseModule.kt), [service](/app/src/androidTest/java/com/example/findyourbook/di/TestNetworkModule.kt), and [pager](/app/src/androidTest/java/com/example/findyourbook/di/TestPagerModule.kt) are replaced.
 This allows the app to be tested in a controlled environment without relying on external services or databases.
-Thorough instrumented tests have been conducted on the screens for [books](/app/src/androidTest/java/com/example/mvvmsample/screen/books/BooksScreenTest.kt), [booksdetails](/app/src/androidTest/java/com/example/mvvmsample/screen/bookdetails/BookDetailsScreenTest.kt), and [favorite](/app/src/androidTest/java/com/example/mvvmsample/screen/favorite/FavoriteScreenTest.kt).
+Thorough instrumented tests have been conducted on the screens for [books](/app/src/androidTest/java/com/example/findyourbook/screen/books/BooksScreenTest.kt), [booksdetails](/app/src/androidTest/java/com/example/findyourbook/screen/bookdetails/BookDetailsScreenTest.kt), and [favorite](/app/src/androidTest/java/com/example/findyourbook/screen/favorite/FavoriteScreenTest.kt).
 Additionally, an example of integration testing for the books graph is included, ensuring that complex interactions and navigation flows work as expected.
 
 Furthermore, the implementation of BooksDao has been separately tested to ensure data is correctly handled and stored.
-To avoid making actual network requests during tests, a [FakeBooksService](/app/src/androidTest/java/com/example/mvvmsample/fake/FakeBooksService.kt) is used, which simulates network responses, ensuring tests are reliable and do not fail due to network issues.
+To avoid making actual network requests during tests, a [FakeBooksService](/app/src/androidTest/java/com/example/findyourbook/fake/FakeBooksService.kt) is used, which simulates network responses, ensuring tests are reliable and do not fail due to network issues.
 
 # Linters
 

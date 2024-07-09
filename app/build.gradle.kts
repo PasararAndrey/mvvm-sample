@@ -1,3 +1,4 @@
+import java.io.FileInputStream
 import java.util.Properties
 
 @Suppress("DSL_SCOPE_VIOLATION")
@@ -9,24 +10,23 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-//    jacoco
 }
 
-// jacoco {
-//    toolVersion = "0.8.13"
-// }
+val propertiesFile = project.rootProject.file("local.properties")
+val properties = Properties()
+properties.load(FileInputStream(propertiesFile))
 
 android {
-    namespace = "com.example.mvvmsample"
+    namespace = "com.findyourbook"
     compileSdk = 34
 
 //    project.tasks.preBuild.dependsOn("detekt").dependsOn("ktlintCheck")
     defaultConfig {
-        applicationId = "com.example.mvvmsample"
+        applicationId = "com.findyourbook"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -34,20 +34,16 @@ android {
         }
         // Removes needless resource configurations from apk
         resourceConfigurations += setOf("en")
-
-        val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").inputStream())
-
         buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")} \"")
-        testInstrumentationRunner = "com.example.mvvmsample.HiltTestRunner"
+        testInstrumentationRunner = "com.example.findyourbook.HiltTestRunner"
     }
 
     signingConfigs {
-        create("release") {
-            storeFile = File(rootDir, "samplekey.jks")
-            keyPassword = "123456"
-            storePassword = "123456"
-            keyAlias = "pasarar"
+        create("release_config") {
+            storeFile = File(rootDir, properties["STORE_FILE"].toString())
+            keyPassword = properties["KEY_PASSWORD"].toString()
+            storePassword = properties["STORE_PASSWORD"].toString()
+            keyAlias = properties["KEY_ALIAS"].toString()
         }
     }
 
@@ -55,15 +51,17 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            signingConfig = signingConfigs["release"]
+            isDebuggable = false
+            signingConfig = signingConfigs["release_config"]
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
                 "kotlin-serialization-proguard-rules.pro",
+                "retrofit-proguard-rules.pro",
             )
             // config strings for database name and network url should be changed according to valid ones
             buildConfigField("String", "DB_NAME_BOOK", "\"book_database\"")
-            buildConfigField("String", "BASE_URL", "\"https://www.google.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.bigbookapi.com/\"")
 
             ndk {
                 abiFilters += setOf("armeabi-v7a", "arm64-v8a", "x86_64")
@@ -177,66 +175,3 @@ dependencies {
     debugImplementation(libs.leakcanary.android)
     //endregion
 }
-
-// val exclusions = listOf(
-//    "**/R.class",
-//    "**/R\$*.class",
-//    "**/BuildConfig.*",
-//    "**/Manifest*.*",
-//    "**/*Test*.*",
-//    "**.*dagger*.*",
-//    "**.*hilt*.*",
-//    "**/*$*lambda*$*.*",
-// )
-//
-// tasks.withType(Test::class) {
-//    configure<JacocoTaskExtension> {
-//        isIncludeNoLocationClasses = true
-//        excludes = listOf("jdk.internal.*")
-//    }
-// }
-//
-// android {
-//    applicationVariants.all(
-//        closureOf<com.android.build.gradle.internal.api.BaseVariantImpl> {
-//            val variant = this@closureOf.name.replaceFirstChar {
-//                if (it.isLowerCase()) {
-//                    it.titlecase(
-//                        Locale.getDefault(),
-//                    )
-//                } else {
-//                    it.toString()
-//                }
-//            }
-//
-//            val unitTests = "test${variant}UnitTest"
-//            val androidTests = "connected${variant}AndroidTest"
-//
-//            tasks.register<JacocoReport>("jacoco${variant}CodeCoverage") {
-//                dependsOn(listOf(unitTests, androidTests))
-//                group = "Reporting"
-//                description = "Execute ui and unit tests, generate and combine Jacoco coverage report"
-//                reports {
-//                    xml.required.set(true)
-//                    html.required.set(true)
-//                }
-//                sourceDirectories.setFrom(layout.projectDirectory.dir("src/main"))
-//                classDirectories.setFrom(
-//                    files(
-//                        fileTree(layout.buildDirectory.dir("intermediates/javac/")) {
-//                            exclude(exclusions)
-//                        },
-//                        fileTree(layout.buildDirectory.dir("tmp/kotlin-classes/")) {
-//                            exclude(exclusions)
-//                        },
-//                    ),
-//                )
-//                executionData.setFrom(
-//                    files(
-//                        fileTree(layout.buildDirectory) { include(listOf("**/*.exec", "**/*.ec")) },
-//                    ),
-//                )
-//            }
-//        },
-//    )
-// }
