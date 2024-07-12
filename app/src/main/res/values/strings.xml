@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MVVM Sample</string>
+    <string name="app_name">Find Your Book</string>
     <string name="title">Title: %1$s</string>
     <string name="no_title_provided">No title provided</string>
     <string name="no_description_provided">No description provided</string>

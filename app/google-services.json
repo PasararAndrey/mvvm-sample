@@ -7,9 +7,28 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:118756461954:android:85cf868bd7e46d0e35d39b",
+        "mobilesdk_app_id": "1:118756461954:android:7c94322df9c5cc6935d39b",
         "android_client_info": {
-          "package_name": "com.example.mvvmsample"
+          "package_name": "com.example.findyourbook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANSmtCBfeZBDyB-LNj6vl8jm7rBdMvDts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118756461954:android:c34744d12f140b9e35d39b",
+        "android_client_info": {
+          "package_name": "com.findyourbook"
         }
       },
       "oauth_client": [],

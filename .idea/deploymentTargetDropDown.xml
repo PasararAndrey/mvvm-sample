@@ -2,14 +2,27 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="BooksGraphTest">
+        <State />
+      </entry>
       <entry key="MVVM Sample.MVVM_Sample.app">
         <State />
       </entry>
-      <entry key="MyFirstTest">
-        <State />
-      </entry>
       <entry key="app">
-        <State />
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\pasar\.android\avd\Pixel_8_API_34.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-07-08T07:54:10.006057200Z" />
+        </State>
       </entry>
     </value>
   </component>

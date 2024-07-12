@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.MvvmExample.Starting" parent="Theme.SplashScreen">
-        <item name="postSplashScreenTheme">@style/Theme.MvvmExample</item>
+    <style name="Theme.FindYourBook.Starting" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.FindYourBook</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
     </style>
 </resources>

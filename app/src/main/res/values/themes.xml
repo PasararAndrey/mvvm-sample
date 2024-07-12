@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.MvvmExample" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.FindYourBook" parent="android:Theme.Material.Light.NoActionBar" />
 
-    <style name="Theme.MvvmExample.Starting" parent="Theme.SplashScreen">
-        <item name="postSplashScreenTheme">@style/Theme.MvvmExample</item>
+    <style name="Theme.FindYourBook.Starting" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.FindYourBook</item>
 
     </style>
 </resources>
