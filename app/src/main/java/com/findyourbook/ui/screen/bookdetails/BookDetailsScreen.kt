@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextAlign
@@ -38,6 +39,7 @@ import coil.compose.SubcomposeAsyncImageContent
 import com.findyourbook.R
 import com.findyourbook.ui.screen.bookdetails.model.BookDetailsUI
 import com.findyourbook.utils.LocalSemantics
+import com.findyourbook.utils.SemanticsStrings
 import com.findyourbook.utils.imageVector
 
 @Composable
@@ -52,7 +54,7 @@ fun BookDetailsScreen(
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.surfaceVariant),
     ) {
-        ScreenContent(uiState.book, onFavorite)
+        ScreenContent(uiState.book, semantics, onFavorite)
         if (uiState.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier
@@ -66,9 +68,9 @@ fun BookDetailsScreen(
 @Composable
 private fun ScreenContent(
     bookDetailsState: BookDetailsUI,
+    semantics: SemanticsStrings,
     onFavorite: () -> Unit,
 ) {
-    val semantics = LocalSemantics.current
     val favoriteIcon: ImageVector = rememberFavoriteIcon(bookDetailsState.isFavorite)
 
     Column(
@@ -80,72 +82,126 @@ private fun ScreenContent(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Spacer(modifier = Modifier.size(96.dp))
-        SubcomposeAsyncImage(
-            model = bookDetailsState.image,
-            contentDescription = null,
-            modifier = Modifier.size(192.dp),
-        ) {
-            val state = painter.state
-            when (state) {
-                is AsyncImagePainter.State.Empty -> SubcomposeAsyncImageContent()
-                is AsyncImagePainter.State.Error -> Icon(
-                    painter = painterResource(id = R.drawable.image_error),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onBackground,
-                )
+        BookImage(bookDetailsState.image, semantics.bookDetailsImage, semantics.bookDetailsImageError)
+        Title(bookDetailsState.title, semantics.bookDetailsTitle)
+        Authors(bookDetailsState.authors, semantics.bookDetailsAuthors)
+        Rating(bookDetailsState.rating, semantics.bookDetailsRating)
+        Description(bookDetailsState.description, semantics.bookDetailsDescription)
+        FavoriteIcon(favoriteIcon, semantics.bookDetailsFavoriteIcon, onFavorite)
+    }
+}
 
-                is AsyncImagePainter.State.Loading -> CircularProgressIndicator()
-                is AsyncImagePainter.State.Success -> SubcomposeAsyncImageContent()
-            }
-        }
-
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .semantics { testTag = semantics.bookDetailsTitle },
-            text = bookDetailsState.title ?: stringResource(id = R.string.no_title_provided),
-            style = MaterialTheme.typography.headlineMedium,
-            textAlign = TextAlign.Center,
-        )
-
-        Text(
-            text = bookDetailsState.authors?.joinToString() ?: stringResource(R.string.no_information_about_authors),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(end = 4.dp)
-                .testTag(semantics.bookDetailsAuthors),
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-        )
-
-        bookDetailsState.rating?.let { rating ->
-            Text(
-                text = stringResource(R.string.rating, rating),
-                modifier = Modifier.testTag(semantics.bookDetailsRating),
+@Composable
+private fun BookImage(
+    image: String?,
+    semanticImage: String,
+    semanticError: String,
+) {
+    SubcomposeAsyncImage(
+        model = image,
+        contentDescription = semanticImage,
+        modifier = Modifier.size(192.dp),
+    ) {
+        val state = painter.state
+        when (state) {
+            is AsyncImagePainter.State.Empty -> SubcomposeAsyncImageContent()
+            is AsyncImagePainter.State.Error -> Icon(
+                painter = painterResource(id = R.drawable.image_error),
+                contentDescription = semanticError,
+                tint = MaterialTheme.colorScheme.onBackground,
             )
-        }
 
+            is AsyncImagePainter.State.Loading -> CircularProgressIndicator()
+            is AsyncImagePainter.State.Success -> SubcomposeAsyncImageContent()
+        }
+    }
+}
+
+@Composable
+private fun Title(
+    title: String?,
+    semanticTitle: String,
+) {
+    Text(
+        modifier = Modifier
+            .fillMaxWidth()
+            .semantics {
+                testTag = semanticTitle
+                contentDescription = semanticTitle
+            },
+        text = title ?: stringResource(id = R.string.no_title_provided),
+        style = MaterialTheme.typography.headlineMedium,
+        textAlign = TextAlign.Center,
+    )
+}
+
+@Composable
+private fun Authors(
+    authors: List<String>?,
+    semanticAuthors: String,
+) {
+    Text(
+        text = authors?.joinToString() ?: stringResource(R.string.no_information_about_authors),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(end = 4.dp)
+            .semantics {
+                testTag = semanticAuthors
+                contentDescription = semanticAuthors
+            },
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+    )
+}
+
+@Composable
+private fun Rating(
+    rating: Double?,
+    semanticRating: String,
+) {
+    if (rating != null) {
         Text(
-            text = bookDetailsState.description ?: stringResource(R.string.no_description_provided),
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.testTag(semantics.bookDetailsDescription),
+            text = stringResource(R.string.rating, rating),
+            modifier = Modifier.testTag(semanticRating),
         )
+    }
+}
 
-        IconButton(
-            onClick = onFavorite,
-            Modifier.semantics { testTag = semantics.bookDetailsFavoriteIcon },
-        ) {
-            Icon(
-                favoriteIcon,
-                null,
-                modifier = Modifier.semantics {
-                    imageVector = favoriteIcon
-                },
-            )
-        }
+@Composable
+private fun Description(
+    description: String?,
+    semanticDescription: String,
+) {
+    Text(
+        text = description ?: stringResource(R.string.no_description_provided),
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.testTag(semanticDescription),
+    )
+}
+
+@Composable
+private fun FavoriteIcon(
+    favoriteIcon: ImageVector,
+    semanticFavoriteIcon: String,
+    onFavorite: () -> Unit,
+) {
+    IconButton(
+        onClick = onFavorite,
+        Modifier.semantics {
+            testTag = semanticFavoriteIcon
+            contentDescription = semanticFavoriteIcon
+        },
+    ) {
+        Icon(
+            favoriteIcon,
+            null,
+            modifier = Modifier.semantics {
+                imageVector = favoriteIcon
+            },
+        )
     }
 }
 
