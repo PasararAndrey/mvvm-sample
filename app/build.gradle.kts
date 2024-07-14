@@ -110,6 +110,7 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.core.splashscreen)
     implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.kotlinx.collections.immutable)
     //endregion
     //region Compose
     implementation(libs.activity.compose)
