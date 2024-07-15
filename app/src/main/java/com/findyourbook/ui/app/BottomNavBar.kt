@@ -44,7 +44,7 @@ fun BottomNavBar(
                 icon = {
                     Icon(
                         imageVector = screen.icon,
-                        contentDescription = null,
+                        contentDescription = screen.route,
                     )
                 },
             )

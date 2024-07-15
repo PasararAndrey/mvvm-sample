@@ -14,6 +14,8 @@ data class SemanticsStrings(
     val bookDetailsScreen: String = "Book details screen",
     val booksScreen: String = "Books screen",
     val favoriteScreen: String = "Favorite screen",
+    val bookDetailsImage: String = "Book image",
+    val bookDetailsImageError: String = "Loading image was not successful",
     val bookDetailsTitle: String = "Book details title",
     val bookDetailsAuthors: String = "Book details authors",
     val bookDetailsDescription: String = "Book details description",
