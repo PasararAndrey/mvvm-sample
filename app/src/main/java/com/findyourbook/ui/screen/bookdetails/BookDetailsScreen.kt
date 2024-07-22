@@ -37,6 +37,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.findyourbook.R
+import com.findyourbook.ads.AdFavoriteBanner
 import com.findyourbook.ui.screen.bookdetails.model.BookDetailsUI
 import com.findyourbook.utils.LocalSemantics
 import com.findyourbook.utils.SemanticsStrings
@@ -88,6 +89,8 @@ private fun ScreenContent(
         Rating(bookDetailsState.rating, semantics.bookDetailsRating)
         Description(bookDetailsState.description, semantics.bookDetailsDescription)
         FavoriteIcon(favoriteIcon, semantics.bookDetailsFavoriteIcon, onFavorite)
+        Spacer(modifier = Modifier.weight(1f))
+        AdFavoriteBanner(modifier = Modifier.fillMaxWidth())
     }
 }
 

@@ -14,7 +14,10 @@
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FindYourBook.Starting"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        >
+        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6866891496533016~3558165426"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
