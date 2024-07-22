@@ -33,18 +33,15 @@ import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.findyourbook.R
+import com.findyourbook.ads.AdFavoriteBanner
 import com.findyourbook.ui.screen.bookdetails.model.BookDetailsUI
 import com.findyourbook.utils.LocalSemantics
 import com.findyourbook.utils.SemanticsStrings
 import com.findyourbook.utils.imageVector
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
 
 @Composable
 fun BookDetailsScreen(
@@ -93,7 +90,7 @@ private fun ScreenContent(
         Description(bookDetailsState.description, semantics.bookDetailsDescription)
         FavoriteIcon(favoriteIcon, semantics.bookDetailsFavoriteIcon, onFavorite)
         Spacer(modifier = Modifier.weight(1f))
-        AdBanner(modifier = Modifier.fillMaxWidth())
+        AdFavoriteBanner(modifier = Modifier.fillMaxWidth())
     }
 }
 
@@ -220,19 +217,6 @@ private fun rememberFavoriteIcon(isFavorite: Boolean) =
             Icons.Default.FavoriteBorder
         }
     }
-
-@Composable
-private fun AdBanner(modifier: Modifier = Modifier) =
-    AndroidView(
-        modifier = modifier,
-        factory = { context ->
-            AdView(context).apply {
-                setAdSize(AdSize.BANNER)
-                adUnitId = "ca-app-pub-3940256099942544/9214589741"
-                loadAd(AdRequest.Builder().build())
-            }
-        },
-    )
 
 @Composable
 @Preview(showBackground = true, name = "Bad case")
