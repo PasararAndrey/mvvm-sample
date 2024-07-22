@@ -12,10 +12,10 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
-fun showOnFavoriteInterstialAd(context: Context) {
+fun showOnFavoriteInterstitialAd(context: Context) {
     InterstitialAd.load(
         context,
-        context.getString(R.string.ad_interstial_on_favorite),
+        context.getString(R.string.ad_interstitial_on_favorite),
         AdRequest.Builder().build(),
         object : InterstitialAdLoadCallback() {
             override fun onAdLoaded(ad: InterstitialAd) {

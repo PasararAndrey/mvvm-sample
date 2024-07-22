@@ -9,7 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.findyourbook.ads.showOnFavoriteInterstialAd
+import com.findyourbook.ads.showOnFavoriteInterstitialAd
 import com.findyourbook.navigation.destinations.NavDestinations
 import com.findyourbook.ui.screen.bookdetails.BookDetailsScreen
 import com.findyourbook.ui.screen.bookdetails.BookDetailsViewModel
@@ -28,7 +28,7 @@ fun NavGraphBuilder.bookDetailsScreen() {
             uiState,
             onFavorite = {
                 viewModel.onFavoriteChange()
-                showOnFavoriteInterstialAd(context)
+                showOnFavoriteInterstitialAd(context)
             },
             modifier = Modifier.semantics {
                 testTag = semanticsStrings.bookDetailsScreen
