@@ -149,6 +149,9 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
     //endregion
+    //region Google services
+    implementation(libs.play.services.ads)
+    //endregion
     //region Local Tests
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)

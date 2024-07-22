@@ -14,16 +14,23 @@ import com.findyourbook.ui.app.App
 import com.findyourbook.ui.theme.ComposeEducationTheme
 import com.findyourbook.utils.LocalSemantics
 import com.findyourbook.utils.SemanticsStrings
+import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: ExampleMainViewModel by viewModels()
+    private val backgroundScope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setupSplashScreen()
+        backgroundScope.launch {
+            MobileAds.initialize(this@MainActivity) {}
+        }
         setContent {
             CompositionLocalProvider(LocalSemantics provides SemanticsStrings()) {
                 ComposeEducationTheme {

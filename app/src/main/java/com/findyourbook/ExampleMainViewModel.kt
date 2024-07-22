@@ -19,7 +19,7 @@ class ExampleMainViewModel @Inject constructor() : ViewModel() {
     init {
         viewModelScope.launch {
             @Suppress("MagicNumber")
-            delay(3000)
+            delay(1000)
             _isSplashShouldBeRemoved.emit(true)
         }
     }
