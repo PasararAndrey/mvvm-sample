@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.FindYourBook" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.FindYourBook" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="colorSurface">@color/surface</item>
+    </style>
 
     <style name="Theme.FindYourBook.Starting" parent="Theme.SplashScreen">
         <item name="postSplashScreenTheme">@style/Theme.FindYourBook</item>
-
     </style>
 </resources>
