@@ -85,6 +85,7 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.5"
@@ -108,9 +109,11 @@ android {
 dependencies {
     //region Core
     implementation(libs.core.ktx)
-    implementation(libs.core.splashscreen)
+    implementation(libs.material)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.core.splashscreen)
+    implementation(libs.androidx.cardview)
     //endregion
     //region Compose
     implementation(libs.activity.compose)
@@ -122,6 +125,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.navigation.compose)
+    implementation(libs.androidx.ui.viewbinding)
     //endregion
     //region DI
     implementation(libs.dagger.hilt.android)

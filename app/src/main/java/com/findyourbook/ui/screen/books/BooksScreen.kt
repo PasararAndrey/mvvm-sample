@@ -21,6 +21,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.findyourbook.ui.screen.books.components.BookElement
+import com.findyourbook.ui.screen.books.components.NativeAdBookElement
 import com.findyourbook.ui.screen.books.model.BooksUI
 import com.findyourbook.utils.LocalSemantics
 
@@ -61,11 +62,15 @@ fun BooksScreen(
 private fun LazyListScope.listContent(
     books: LazyPagingItems<BooksUI>,
     onNavigateToBookDetails: (bookId: Long) -> Unit,
+    adPositionDivisor: Int = 10,
 ) {
     items(
         count = books.itemCount,
         key = books.itemKey { it.id },
     ) { index ->
+        if (index % (adPositionDivisor - 1) == 0 && index != 0) {
+            NativeAdBookElement(modifier = Modifier.fillMaxWidth())
+        }
         val book: BooksUI? = books[index]
         with(book) {
             if (this != null) {
